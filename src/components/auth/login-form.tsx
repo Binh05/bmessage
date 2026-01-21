@@ -17,6 +17,8 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { urlBase } from "@/utils/api";
+import { useAppDispatch } from "@/lib/hooks";
+import { setAuth } from "@/lib/features/authSlice";
 
 const URL_BASE = process.env.NEXT_PUBLIC_API_BASE ?? urlBase;
 
@@ -31,12 +33,14 @@ export function LoginForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
+    const router = useRouter();
+    const dispatch = useAppDispatch();
+
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
     } = useForm<LoginTypeValue>({ resolver: zodResolver(loginSchema) });
-    const router = useRouter();
 
     const onLogin = async (data: LoginTypeValue) => {
         try {
@@ -59,8 +63,12 @@ export function LoginForm({
             }
 
             toast.success("Dang nhap thanh cong");
+
             localStorage.setItem("token", result.token);
-            console.log("res data", result);
+            localStorage.setItem("user", JSON.stringify(result.user));
+
+            dispatch(setAuth({ token: result.token, user: result.user }));
+
             router.push("/");
         } catch (error: any) {
             toast.error(error?.message ?? "Đã xảy ra lỗi. Hãy thử lại!");
