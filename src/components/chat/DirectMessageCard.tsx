@@ -1,8 +1,48 @@
 import { Conversation } from "@/types/chat";
 import ChatCard from "./ChatCard";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import UserAvatar from "./UserAvatar";
+import { setActiveConversationId } from "@/lib/features/chatSlice";
 
 function DirectMessageCard({ convo }: { convo: Conversation }) {
-    return <ChatCard convoId={convo._id} />;
+    const user = useAppSelector((state) => state.authReducer.user);
+    const { activeConversationId } = useAppSelector(
+        (state) => state.chatReducer,
+    );
+    const dispatch = useAppDispatch();
+
+    const otherUser = convo.participants.find(
+        (parti) => parti._id !== user?._id,
+    );
+
+    if (!otherUser) return null;
+
+    const hanleSelectConvo = (id: string) => {
+        dispatch(setActiveConversationId(id));
+    };
+
+    return (
+        <ChatCard
+            leftSection={
+                <>
+                    <UserAvatar />
+                </>
+            }
+            onSelect={hanleSelectConvo}
+            isActive={convo._id === activeConversationId}
+            convoId={convo._id}
+            name={otherUser.username}
+            timetamps={
+                convo.lastMessage?.createdAt
+                    ? new Date(convo.lastMessage.createdAt)
+                    : undefined
+            }
+            subtitle={
+                convo.lastMessage?.content ??
+                "Hãy gửi tin nhắn để bắt đầu cuộc trò chuyện"
+            }
+        />
+    );
 }
 
 export default DirectMessageCard;
