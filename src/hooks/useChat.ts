@@ -1,15 +1,33 @@
-import { setMessageLoading, setMessages } from "@/lib/features/chatSlice";
+import {
+  setConversations,
+  setConvoLoading,
+  setMessageLoading,
+  setMessages,
+} from "@/lib/features/chatSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { chatService } from "@/services/chatService";
 
 export const useChat = () => {
   const dispatch = useAppDispatch();
-  const { activeConversationId, messages, messageLoading } = useAppSelector(
+  const { activeConversationId, messages } = useAppSelector(
     (state) => state.chat,
   );
   const { user } = useAppSelector((state) => state.auth);
 
-  const fetchConversations = async () => {};
+  const fetchConversations = async () => {
+    try {
+      dispatch(setConvoLoading(true));
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Ban khong co quyen");
+      const data = await chatService.fetchConversation(token);
+
+      dispatch(setConversations(data.conversations));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      dispatch(setConvoLoading(false));
+    }
+  };
 
   const fetchMessages = async (conversationId: string) => {
     const convoId = conversationId ?? activeConversationId;
