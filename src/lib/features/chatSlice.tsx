@@ -37,6 +37,9 @@ const chatSlice = createSlice({
     setConversations: (state, action) => {
       state.conversations = action.payload;
     },
+    setConvoLoading: (state, action) => {
+      state.convoLoading = action.payload;
+    },
     setMessageLoading: (state, action) => {
       state.messageLoading = action.payload;
     },
@@ -81,4 +84,5 @@ export const {
   setConversations,
   setMessageLoading,
   setMessages,
+  setConvoLoading,
 } = chatSlice.actions;
