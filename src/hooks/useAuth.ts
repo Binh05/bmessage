@@ -19,11 +19,8 @@ export const useAuth = () => {
 
       toast.success("Dang nhap thanh cong");
 
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
       dispatch(setAuth({ token, user }));
-      await fetchConversations();
+      await fetchConversations(token);
 
       router.push("/");
     } catch (error: any) {
