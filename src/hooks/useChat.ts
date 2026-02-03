@@ -14,10 +14,10 @@ export const useChat = () => {
   );
   const { user } = useAppSelector((state) => state.auth);
 
-  const fetchConversations = async () => {
+  const fetchConversations = async (token: string) => {
     try {
       dispatch(setConvoLoading(true));
-      const token = localStorage.getItem("token");
+
       if (!token) throw new Error("Ban khong co quyen");
       const data = await chatService.fetchConversation(token);
 
