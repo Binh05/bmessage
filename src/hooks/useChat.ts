@@ -12,7 +12,7 @@ export const useChat = () => {
   const { activeConversationId, messages } = useAppSelector(
     (state) => state.chat,
   );
-  const { user } = useAppSelector((state) => state.auth);
+  const { token, user } = useAppSelector((state) => state.auth);
 
   const fetchConversations = async (token: string) => {
     try {
@@ -43,7 +43,10 @@ export const useChat = () => {
     dispatch(setMessageLoading(true));
 
     try {
+      if (!token) throw new Error("Bạn không có quyền");
+
       const { messages: fetched, cursor } = await chatService.fetchMessages(
+        token,
         convoId,
         nextCursor,
       );

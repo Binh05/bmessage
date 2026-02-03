@@ -1,5 +1,6 @@
 import { urlBase } from "@/utils/api";
 import { Message } from "@/types/chat";
+import { useAppSelector } from "@/lib/hooks";
 
 const URL_BASE = process.env.NEXT_PUBLIC_API_BASE ?? urlBase;
 
@@ -31,11 +32,10 @@ export const chatService = {
   },
 
   fetchMessages: async (
+    token: string,
     id: string,
     cursor?: string,
   ): Promise<MessagesResponse> => {
-    const token = localStorage.getItem("token");
-
     const res = await fetch(
       `${URL_BASE}/conversations/${id}/messages?limit=${pageLimit}&cursor=${cursor}`,
       {

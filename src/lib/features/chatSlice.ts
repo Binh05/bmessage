@@ -17,7 +17,7 @@ export interface InitialState {
   loading: boolean;
 }
 
-const initialState: InitialState = {
+export const initialState: InitialState = {
   conversations: [],
   messages: {},
   activeConversationId: null,

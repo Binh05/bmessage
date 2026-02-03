@@ -5,7 +5,6 @@ import UserAvatar from "./UserAvatar";
 import { setActiveConversationId } from "@/lib/features/chatSlice";
 import StatusBadge from "./StatusBadge";
 import { useChat } from "@/hooks/useChat";
-import { useEffect } from "react";
 
 function DirectMessageCard({ convo }: { convo: Conversation }) {
   const { user } = useAppSelector((state) => state.auth);
@@ -28,8 +27,6 @@ function DirectMessageCard({ convo }: { convo: Conversation }) {
       await fetchMessages(id);
     }
   };
-
-  useEffect(() => console.log("message after fetch", messages), [messages]);
 
   return (
     <ChatCard
