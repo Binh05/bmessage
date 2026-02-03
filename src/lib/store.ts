@@ -3,6 +3,7 @@ import { authReducer } from "./features/authSlice";
 import { chatReducer } from "./features/chatSlice";
 import storage from "redux-persist/lib/storage";
 import { createTransform, persistReducer } from "redux-persist";
+import { initialState as iStateChat } from "./features/chatSlice";
 
 const chatTransform = createTransform(
   (inboundState: any) => {
@@ -12,6 +13,7 @@ const chatTransform = createTransform(
   },
   (outboundState: any) => {
     return {
+      ...iStateChat,
       conversations: outboundState.conversations ?? [],
     };
   },
