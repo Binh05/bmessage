@@ -4,21 +4,32 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import UserAvatar from "./UserAvatar";
 import { setActiveConversationId } from "@/lib/features/chatSlice";
 import StatusBadge from "./StatusBadge";
+import { useChat } from "@/hooks/useChat";
+import { useEffect } from "react";
 
 function DirectMessageCard({ convo }: { convo: Conversation }) {
   const { user } = useAppSelector((state) => state.auth);
-  const { activeConversationId } = useAppSelector((state) => state.chat);
+  const { activeConversationId, messages } = useAppSelector(
+    (state) => state.chat,
+  );
+  const { fetchMessages } = useChat();
   const dispatch = useAppDispatch();
+
+  if (!user) return null;
 
   const otherUser = convo.participants.find((parti) => parti._id !== user?._id);
 
   if (!otherUser) return null;
-  console.log("user", user);
-  const unreadCount = convo.unreadCounts[user!._id];
+  const unreadCount = convo.unreadCounts[user._id];
 
-  const hanleSelectConvo = (id: string) => {
+  const hanleSelectConvo = async (id: string) => {
     dispatch(setActiveConversationId(id));
+    if (!messages[id]) {
+      await fetchMessages(id);
+    }
   };
+
+  useEffect(() => console.log("message after fetch", messages), [messages]);
 
   return (
     <ChatCard

@@ -2,17 +2,17 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./features/authSlice";
 import { chatReducer } from "./features/chatSlice";
 import storage from "redux-persist/lib/storage";
-import { persistReducer } from "redux-persist";
+import { createTransform, persistReducer } from "redux-persist";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["authReducer"],
+  whitelist: ["auth"],
 };
 
 const rootReducer = combineReducers({
-  authReducer,
-  chatReducer,
+  auth: authReducer,
+  chat: chatReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
