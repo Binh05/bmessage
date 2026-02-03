@@ -4,10 +4,25 @@ import { chatReducer } from "./features/chatSlice";
 import storage from "redux-persist/lib/storage";
 import { createTransform, persistReducer } from "redux-persist";
 
+const chatTransform = createTransform(
+  (inboundState: any) => {
+    return {
+      conversations: inboundState.conversations,
+    };
+  },
+  (outboundState: any) => {
+    return {
+      conversations: outboundState.conversations ?? [],
+    };
+  },
+  { whitelist: ["chat"] },
+);
+
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"],
+  whitelist: ["auth", "chat"],
+  transforms: [chatTransform],
 };
 
 const rootReducer = combineReducers({
@@ -15,7 +30,9 @@ const rootReducer = combineReducers({
   chat: chatReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+export type RootState = ReturnType<typeof rootReducer>;
+
+const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer);
 
 export const makeStore = () => {
   return configureStore({
@@ -28,5 +45,5 @@ export const makeStore = () => {
 };
 
 export type AppStore = ReturnType<typeof makeStore>;
-export type RootState = ReturnType<AppStore["getState"]>;
+//export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
