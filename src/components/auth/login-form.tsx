@@ -14,13 +14,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { urlBase } from "@/utils/api";
-import { useAppDispatch } from "@/lib/hooks";
-import { setAuth } from "@/lib/features/authSlice";
-
-const URL_BASE = process.env.NEXT_PUBLIC_API_BASE ?? urlBase;
+import { useAuth } from "@/hooks/useAuth";
 
 const loginSchema = z.object({
   email: z.email("Email không hợp lệ"),
@@ -33,48 +27,15 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LoginTypeValue>({ resolver: zodResolver(loginSchema) });
+  const { SignIn } = useAuth();
 
   const onLogin = async (data: LoginTypeValue) => {
-    try {
-      localStorage.clear();
-
-      const res = await fetch(`${URL_BASE}/auth/signin`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
-        credentials: "include",
-      });
-
-      const result = await res.json();
-
-      if (!res.ok) {
-        throw new Error(result.message || "Đăng nhập thất bại");
-      }
-
-      toast.success("Dang nhap thanh cong");
-
-      localStorage.setItem("token", result.token);
-      localStorage.setItem("user", JSON.stringify(result.user));
-
-      dispatch(setAuth({ token: result.token, user: result.user }));
-
-      router.push("/");
-    } catch (error: any) {
-      toast.error(error?.message ?? "Đã xảy ra lỗi. Hãy thử lại!");
-    }
+    await SignIn(data.email, data.password);
   };
 
   return (

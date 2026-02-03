@@ -1,32 +1,14 @@
 "use client";
-import { signOut } from "@/services/auth";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/lib/hooks";
-import { clearState } from "@/lib/features/authSlice";
+
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
-import { clearChat } from "@/lib/features/chatSlice";
+import { useAuth } from "@/hooks/useAuth";
 
 const Logout = () => {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+  const { SignOut } = useAuth();
 
   const onLogout = async () => {
-    try {
-      await signOut();
-
-      toast.info("Dang xuat thanh cong");
-      router.replace("/login");
-
-      dispatch(clearState());
-      dispatch(clearChat());
-
-      localStorage.clear();
-    } catch (error: any) {
-      toast.error(error?.message ?? "Da xay ra loi. Hay thu lai!");
-      console.error(error.message);
-    }
+    await SignOut();
   };
 
   return (
