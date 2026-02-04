@@ -1,6 +1,5 @@
 import { urlBase } from "@/utils/api";
 import { Message } from "@/types/chat";
-import { useAppSelector } from "@/lib/hooks";
 
 const URL_BASE = process.env.NEXT_PUBLIC_API_BASE ?? urlBase;
 

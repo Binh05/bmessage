@@ -1,14 +1,13 @@
 import { useAppSelector } from "@/lib/hooks";
-import { SidebarInset, SidebarTrigger } from "../ui/sidebar";
+import { SidebarInset } from "../ui/sidebar";
 import ChatWindowHeader from "./ChatWindowHeader";
 import MessageInput from "./MessageInput";
 import ChatWelcomeScreen from "./ChatWelcomeScreen";
 import ChatWindowBody from "./ChatWindowBody";
+import { chatSelector } from "@/lib/selector";
 
 const ChatWindowLayout = () => {
-  const { conversations, activeConversationId } = useAppSelector(
-    (state) => state.chat,
-  );
+  const { conversations, activeConversationId } = useAppSelector(chatSelector);
 
   const selectedConvo =
     conversations.find((convo) => convo._id === activeConversationId) ?? null;

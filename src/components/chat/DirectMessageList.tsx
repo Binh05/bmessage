@@ -1,17 +1,18 @@
 import { UserPlus } from "lucide-react";
 import DirectMessageCard from "./DirectMessageCard";
 import { useAppSelector } from "@/lib/hooks";
+import { chatSelector } from "@/lib/selector";
 
 function DirectMessageList() {
-  const { conversations } = useAppSelector((state) => state.chat);
+  const { conversations } = useAppSelector(chatSelector);
   const directConversation = conversations.filter(
     (convo) => convo.type === "direct",
   );
 
   return (
-    <div className="flex flex-col gap-2 p-1 mt-8">
+    <div className="mt-8 flex flex-col gap-2 p-1">
       <div className="flex justify-between">
-        <p className="uppercase text-muted-foreground text-sm">Bạn Bè</p>
+        <p className="text-muted-foreground text-sm uppercase">Bạn Bè</p>
         <UserPlus className="size-4" />
       </div>
       {directConversation.map((convo) => (

@@ -5,12 +5,11 @@ import UserAvatar from "./UserAvatar";
 import { setActiveConversationId } from "@/lib/features/chatSlice";
 import StatusBadge from "./StatusBadge";
 import { useChat } from "@/hooks/useChat";
+import { authSelector, chatSelector } from "@/lib/selector";
 
 function DirectMessageCard({ convo }: { convo: Conversation }) {
-  const { user } = useAppSelector((state) => state.auth);
-  const { activeConversationId, messages } = useAppSelector(
-    (state) => state.chat,
-  );
+  const { user } = useAppSelector(authSelector);
+  const { activeConversationId, messages } = useAppSelector(chatSelector);
   const { fetchMessages } = useChat();
   const dispatch = useAppDispatch();
 

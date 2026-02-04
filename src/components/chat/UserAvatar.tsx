@@ -1,6 +1,5 @@
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { useAppSelector } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 
 interface IUserAvatarProps {
@@ -28,7 +27,7 @@ function UserAvatar({
       )}
     >
       <AvatarImage src={avatarUrl} alt="avatar friend" />
-      <AvatarFallback className={`${bgColor} text-white font-semibold`}>
+      <AvatarFallback className={`${bgColor} font-semibold text-white`}>
         {name.charAt(0)}
       </AvatarFallback>
     </Avatar>

@@ -5,14 +5,13 @@ import {
   setMessages,
 } from "@/lib/features/chatSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { authSelector, chatSelector } from "@/lib/selector";
 import { chatService } from "@/services/chatService";
 
 export const useChat = () => {
   const dispatch = useAppDispatch();
-  const { activeConversationId, messages } = useAppSelector(
-    (state) => state.chat,
-  );
-  const { token, user } = useAppSelector((state) => state.auth);
+  const { activeConversationId, messages } = useAppSelector(chatSelector);
+  const { token, user } = useAppSelector(authSelector);
 
   const fetchConversations = async (token: string) => {
     try {
