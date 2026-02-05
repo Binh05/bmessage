@@ -10,7 +10,8 @@ import { chatService } from "@/services/chatService";
 
 export const useChat = () => {
   const dispatch = useAppDispatch();
-  const { activeConversationId, messages } = useAppSelector(chatSelector);
+  const { activeConversationId, messages, conversations } =
+    useAppSelector(chatSelector);
   const { token, user } = useAppSelector(authSelector);
 
   const fetchConversations = async (token: string) => {
@@ -65,5 +66,31 @@ export const useChat = () => {
     }
   };
 
-  return { fetchMessages, fetchConversations };
+  const sendDirectMessage = async (
+    recipientId: string,
+    content: string,
+    imgUrl?: string,
+  ) => {
+    try {
+      if (!token) return;
+      if (!activeConversationId) throw new Error("Khong co conversationId");
+      await chatService.sendDirectMessage(
+        token,
+        recipientId,
+        content,
+        imgUrl,
+        activeConversationId,
+      );
+
+      const resetSeenby = conversations.map((convo) =>
+        convo._id === activeConversationId ? { ...convo, seenBy: [] } : convo,
+      );
+
+      dispatch(setConversations(resetSeenby));
+    } catch (error) {
+      console.error("Loi xay ra khi send direct message", error);
+    }
+  };
+
+  return { fetchMessages, fetchConversations, sendDirectMessage };
 };

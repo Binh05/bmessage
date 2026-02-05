@@ -5,13 +5,14 @@ import UserAvatar from "./UserAvatar";
 import { setActiveConversationId } from "@/lib/features/chatSlice";
 import StatusBadge from "./StatusBadge";
 import { useChat } from "@/hooks/useChat";
-import { authSelector, chatSelector } from "@/lib/selector";
+import { authSelector, chatSelector, socketSelector } from "@/lib/selector";
 
 function DirectMessageCard({ convo }: { convo: Conversation }) {
   const { user } = useAppSelector(authSelector);
   const { activeConversationId, messages } = useAppSelector(chatSelector);
   const { fetchMessages } = useChat();
   const dispatch = useAppDispatch();
+  const { onlineUsers } = useAppSelector(socketSelector);
 
   if (!user) return null;
 
@@ -36,7 +37,11 @@ function DirectMessageCard({ convo }: { convo: Conversation }) {
             name={otherUser.username}
             avatarUrl={otherUser.avatarUrl}
           />
-          <StatusBadge status="offline" />
+          <StatusBadge
+            status={
+              onlineUsers.includes(otherUser?._id ?? "") ? "online" : "offline"
+            }
+          />
         </>
       }
       onSelect={hanleSelectConvo}

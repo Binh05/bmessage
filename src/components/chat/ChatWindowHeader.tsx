@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/lib/hooks";
 import { Conversation } from "@/types/chat";
 import { SidebarTrigger } from "../ui/sidebar";
-import { authSelector, chatSelector } from "@/lib/selector";
+import { authSelector, chatSelector, socketSelector } from "@/lib/selector";
 import { Separator } from "../ui/separator";
 import UserAvatar from "./UserAvatar";
 import StatusBadge from "./StatusBadge";
@@ -9,6 +9,7 @@ import StatusBadge from "./StatusBadge";
 const ChatWindowHeader = ({ chat }: { chat?: Conversation }) => {
   const { conversations, activeConversationId } = useAppSelector(chatSelector);
   const { user } = useAppSelector(authSelector);
+  const { onlineUsers } = useAppSelector(socketSelector);
   let otherUser;
 
   chat =
@@ -47,7 +48,13 @@ const ChatWindowHeader = ({ chat }: { chat?: Conversation }) => {
                   name={otherUser?.username || "Bmessage"}
                   avatarUrl={otherUser?.avatarUrl || undefined}
                 />
-                <StatusBadge status="online" />
+                <StatusBadge
+                  status={
+                    onlineUsers.includes(otherUser?._id ?? "")
+                      ? "online"
+                      : "offline"
+                  }
+                />
               </>
             ) : (
               <></>

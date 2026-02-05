@@ -54,4 +54,31 @@ export const chatService = {
       cursor: data.nextCursor,
     };
   },
+
+  sendDirectMessage: async (
+    token: string,
+    recipientId: string,
+    content: string = "",
+    imgUrl?: string,
+    conversationId?: string,
+  ) => {
+    const res = await fetch(`${URL_BASE}/messages/direct`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        recipientId,
+        content,
+        imgUrl,
+        conversationId,
+      }),
+      credentials: "include",
+    });
+
+    const data = await res.json();
+
+    return data;
+  },
 };

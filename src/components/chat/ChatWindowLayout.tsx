@@ -12,13 +12,13 @@ const ChatWindowLayout = () => {
   const selectedConvo =
     conversations.find((convo) => convo._id === activeConversationId) ?? null;
 
-  if (!activeConversationId) {
+  if (!selectedConvo) {
     return <ChatWelcomeScreen />;
   }
   return (
     <SidebarInset className="flex h-full flex-1 flex-col overflow-hidden rounded-sm shadow-md">
       {/* Header */}
-      <ChatWindowHeader />
+      <ChatWindowHeader chat={selectedConvo} />
 
       {/* Content */}
       <div className="bg-primary-foreground flex-1 overflow-y-auto">
@@ -26,7 +26,7 @@ const ChatWindowLayout = () => {
       </div>
 
       {/* Footer */}
-      <MessageInput />
+      <MessageInput selectedConvo={selectedConvo} />
     </SidebarInset>
   );
 };
