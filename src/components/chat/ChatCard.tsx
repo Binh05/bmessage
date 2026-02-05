@@ -29,18 +29,18 @@ function ChatCard({
       key={convoId}
       onClick={() => onSelect(convoId)}
       className={cn(
-        "border-none p-3 cursor-pointer transition-smooth glass hover:bg-muted/30",
+        "transition-smooth glass hover:bg-muted/30 cursor-pointer border-none p-3",
         isActive &&
-          "ring-2 ring-primary/50 bg-linear-to-tr from-primary-glow/10 to-primary-foreground",
+          "ring-primary/50 from-primary-glow/10 to-primary-foreground bg-linear-to-tr ring-2",
       )}
     >
-      <div className="flex gap-4 items-center">
+      <div className="flex items-center gap-4">
         <div className="relative">{leftSection}</div>
-        <div className="min-w-0 flex-1">
-          <div className="flex justify-between w-full">
+        <div className="min-w-0 flex-1 gap-1">
+          <div className="flex w-full justify-between">
             <p
               className={cn(
-                "text-sm truncate",
+                "truncate text-sm font-semibold",
                 unreadCount > 0 && "text-foreground font-bold",
               )}
             >
@@ -50,10 +50,10 @@ function ChatCard({
               {timetamps ? formatMessageTime(timetamps) : ""}
             </p>
           </div>
-          <div className="flex justify-between items-center ">
+          <div className="flex items-center justify-between">
             <p
               className={cn(
-                "truncate text-sm text-muted-foreground",
+                "text-muted-foreground truncate text-sm",
                 unreadCount > 0 && "text-foreground font-bold",
               )}
             >
@@ -63,7 +63,7 @@ function ChatCard({
               <div className="pulse-ring">
                 <Badge
                   variant="destructive"
-                  className="size-5 border border-background text-xs text-white"
+                  className="border-background size-5 border text-xs text-white"
                 >
                   {unreadCount > 9 ? "9+" : unreadCount}
                 </Badge>

@@ -86,7 +86,11 @@ const chatSlice = createSlice({
         nextCursor: state.messages[convoId]?.nextCursor ?? null,
       };
     },
-
+    resetSeenBy: (state, action) => {
+      state.conversations = state.conversations.map((c) =>
+        c._id === action.payload ? { ...c, seenBy: [] } : c,
+      );
+    },
     clearChat: (state) => {
       state.conversations = [];
       state.messages = {};
@@ -109,4 +113,5 @@ export const {
   setMessages,
   addMessageRealtime,
   setConvoLoading,
+  resetSeenBy,
 } = chatSlice.actions;

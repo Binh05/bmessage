@@ -68,6 +68,8 @@ export default function SocketClient() {
 
       // Xóa listeners để tránh duplicate
       socketInstance.off("connect");
+      socketInstance.off("online-users");
+      socketInstance.off("new-message");
       socketInstance.off("disconnect");
     };
   }, [token, dispatch]);

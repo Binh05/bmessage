@@ -1,12 +1,12 @@
 import {
   addMessageRealtime,
+  resetSeenBy,
   setConversations,
   setConvoLoading,
   setMessageLoading,
   setMessages,
 } from "@/lib/features/chatSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { authSelector, chatSelector } from "@/lib/selector";
+import { useAppDispatch } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
 import { chatService } from "@/services/chatService";
 import { Message } from "@/types/chat";
@@ -15,7 +15,6 @@ import { useStore } from "react-redux";
 export const useChat = () => {
   const dispatch = useAppDispatch();
   const store = useStore<RootState>();
-  const state = store.getState();
 
   const fetchConversations = async (token: string) => {
     try {
@@ -32,11 +31,15 @@ export const useChat = () => {
     }
   };
 
-  const fetchMessages = async (conversationId: string) => {
+  const fetchMessages = async (conversationId?: string) => {
+    const state = store.getState();
     const { activeConversationId, messages } = state.chat;
     const { token, user } = state.auth;
 
     const convoId = conversationId ?? activeConversationId;
+
+    console.log(convoId);
+    console.log(activeConversationId);
 
     if (!convoId) return;
 
@@ -78,8 +81,9 @@ export const useChat = () => {
     imgUrl?: string,
   ) => {
     try {
+      const state = store.getState();
       const { token } = state.auth;
-      const { activeConversationId, conversations } = state.chat;
+      const { activeConversationId } = state.chat;
 
       if (!token) return;
       if (!activeConversationId) throw new Error("Khong co conversationId");
@@ -91,11 +95,7 @@ export const useChat = () => {
         activeConversationId,
       );
 
-      const resetSeenby = conversations.map((convo) =>
-        convo._id === activeConversationId ? { ...convo, seenBy: [] } : convo,
-      );
-
-      dispatch(setConversations(resetSeenby));
+      dispatch(resetSeenBy(activeConversationId));
     } catch (error) {
       console.error("Loi xay ra khi send direct message", error);
     }
@@ -117,14 +117,12 @@ export const useChat = () => {
 
       if (!convoId) return;
 
-      console.log("messages[convoId]", messages[convoId]);
-
       if (!messages[convoId]) {
+        console.log("hook fetch: ", messages[convoId]);
         await fetchMessages(convoId);
       }
 
       dispatch(addMessageRealtime({ convoId, message: updatedMessage }));
-      console.log("messages[convoId]", messages[convoId]);
     } catch (error) {
       console.log("loi xay ra khi add message", error);
     }
