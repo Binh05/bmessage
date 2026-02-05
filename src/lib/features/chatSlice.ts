@@ -40,6 +40,11 @@ const chatSlice = createSlice({
     setConvoLoading: (state, action) => {
       state.convoLoading = action.payload;
     },
+    updateConversation: (state, action: PayloadAction<Conversation>) => {
+      state.conversations = state.conversations.map((c) =>
+        c._id === action.payload._id ? { ...c, ...action.payload } : c,
+      );
+    },
     setMessageLoading: (state, action) => {
       state.messageLoading = action.payload;
     },
@@ -65,6 +70,23 @@ const chatSlice = createSlice({
         nextCursor: nextCursor ?? null,
       };
     },
+    addMessageRealtime: (
+      state,
+      action: PayloadAction<{ convoId: string; message: Message }>,
+    ) => {
+      const { convoId, message } = action.payload;
+
+      const prev = state.messages[convoId]?.items ?? [];
+
+      if (prev.some((m) => m._id === message._id)) return;
+
+      state.messages[convoId] = {
+        items: [...prev, message],
+        hasMore: state.messages[convoId]?.hasMore ?? false,
+        nextCursor: state.messages[convoId]?.nextCursor ?? null,
+      };
+    },
+
     clearChat: (state) => {
       state.conversations = [];
       state.messages = {};
@@ -82,7 +104,9 @@ export const {
   setActiveConversationId,
   clearChat,
   setConversations,
+  updateConversation,
   setMessageLoading,
   setMessages,
+  addMessageRealtime,
   setConvoLoading,
 } = chatSlice.actions;

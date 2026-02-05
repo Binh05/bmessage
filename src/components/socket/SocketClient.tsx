@@ -2,13 +2,16 @@
 
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { authSelector } from "@/lib/selector";
+import { authSelector, chatSelector } from "@/lib/selector";
 import { initSocket, disconnectSocket, getSocket } from "@/lib/socket";
 import { setOnlineUsers } from "@/lib/features/socketSlice";
+import { useChat } from "@/hooks/useChat";
+import { updateConversation } from "@/lib/features/chatSlice";
 
 export default function SocketClient() {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector(authSelector);
+  const { addMessage } = useChat();
 
   useEffect(() => {
     if (!token) {
@@ -25,6 +28,34 @@ export default function SocketClient() {
     socketInstance.on("online-users", (userIds) => {
       dispatch(setOnlineUsers(userIds));
     });
+
+    socketInstance.on(
+      "new-message",
+      ({ message, conversation, unreadCounts }) => {
+        addMessage(message);
+
+        const lastMessage = {
+          _id: conversation.lastMessage._id,
+          content: conversation.lastMessage.content,
+          createdAt: conversation.lastMessage.createdAt,
+          sender: {
+            _id: conversation.lastMessage.senderId,
+            displayName: "",
+            avatarUrl: null,
+          },
+        };
+
+        const updatedConversation = {
+          ...conversation,
+          lastMessage,
+          unreadCounts,
+        };
+
+        // mark ass seen
+
+        dispatch(updateConversation(updatedConversation));
+      },
+    );
 
     socketInstance.on("disconnect", () => {
       console.log("Socket disconnected");
