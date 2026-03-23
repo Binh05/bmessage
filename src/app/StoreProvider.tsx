@@ -1,5 +1,6 @@
 "use client";
 
+import { injectStore } from "@/lib/api";
 import { AppStore, makeStore } from "@/lib/store";
 import { useRef } from "react";
 import { Provider } from "react-redux";
@@ -13,6 +14,8 @@ function StoreProvider({ children }: { children: React.ReactNode }) {
   if (!storeRef.current) {
     storeRef.current = makeStore();
     persistRef.current = persistStore(storeRef.current);
+
+    injectStore(storeRef.current)
   }
 
   return (
