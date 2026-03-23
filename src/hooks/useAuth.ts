@@ -15,15 +15,16 @@ export const useAuth = () => {
     try {
       localStorage.clear();
 
-      const { token, user } = await authService.signIn(email, password);
+      const { accessToken, user } = await authService.signIn(email, password);
 
       toast.success("Dang nhap thanh cong");
 
-      dispatch(setAuth({ token, user }));
-      await fetchConversations(token);
+      dispatch(setAuth({ token: accessToken, user }));
+      await fetchConversations();
 
       router.push("/");
     } catch (error: any) {
+      console.log(error)
       toast.error(error?.message ?? "Đã xảy ra lỗi. Hãy thử lại!");
     }
   };

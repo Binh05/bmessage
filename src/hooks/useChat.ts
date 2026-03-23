@@ -16,12 +16,11 @@ export const useChat = () => {
   const dispatch = useAppDispatch();
   const store = useStore<RootState>();
 
-  const fetchConversations = async (token: string) => {
+  const fetchConversations = async () => {
     try {
       dispatch(setConvoLoading(true));
 
-      if (!token) throw new Error("Ban khong co quyen");
-      const data = await chatService.fetchConversation(token);
+      const data = await chatService.fetchConversation();
 
       dispatch(setConversations(data.conversations));
     } catch (error) {
@@ -34,7 +33,7 @@ export const useChat = () => {
   const fetchMessages = async (conversationId?: string) => {
     const state = store.getState();
     const { activeConversationId, messages } = state.chat;
-    const { token, user } = state.auth;
+    const { user } = state.auth;
 
     const convoId = conversationId ?? activeConversationId;
 
@@ -52,10 +51,8 @@ export const useChat = () => {
     dispatch(setMessageLoading(true));
 
     try {
-      if (!token) throw new Error("Bạn không có quyền");
 
       const { messages: fetched, cursor } = await chatService.fetchMessages(
-        token,
         convoId,
         nextCursor,
       );
@@ -82,13 +79,10 @@ export const useChat = () => {
   ) => {
     try {
       const state = store.getState();
-      const { token } = state.auth;
       const { activeConversationId } = state.chat;
 
-      if (!token) return;
       if (!activeConversationId) throw new Error("Khong co conversationId");
       await chatService.sendDirectMessage(
-        token,
         recipientId,
         content,
         imgUrl,

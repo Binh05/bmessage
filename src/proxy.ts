@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
 export default function proxy(req: NextRequest) {
-    const token = req.cookies.get("token")?.value || "";
+    const token = req.cookies.get("refreshToken")?.value || "";
     const pathname = req.nextUrl.pathname;
 
     const publicPaths = ["/login", "/signup"];

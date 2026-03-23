@@ -8,6 +8,7 @@ export const authService = {
   signIn: async (email: string, password: string) => {
     const res = await api.post(`/auth/signin`, { email, password })
 
+    console.log(res.data)
     return res.data;
   },
 
