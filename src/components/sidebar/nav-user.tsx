@@ -28,11 +28,15 @@ import {
 
 import { User } from "@/types/user";
 import Logout from "../auth/Logout";
+import ProfileDialog from "../profile/ProfileDialog";
+import { useState } from "react";
 
 export function NavUser({ user }: { user: User }) {
   const { isMobile } = useSidebar();
+  const [profileOpen, setProfileOpen] = useState<boolean>(false);
 
   return (
+    <>
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
@@ -75,7 +79,7 @@ export function NavUser({ user }: { user: User }) {
 
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setProfileOpen(true)}>
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
@@ -93,5 +97,8 @@ export function NavUser({ user }: { user: User }) {
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
+
+    <ProfileDialog open={profileOpen} setOpen={setProfileOpen} />
+    </>
   );
 }

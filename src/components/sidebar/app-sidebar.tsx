@@ -31,11 +31,18 @@ import {
 } from "@/components/ui/sidebar";
 import DirectMessageList from "../chat/DirectMessageList";
 import { Switch } from "../ui/switch";
-import { useAppSelector } from "@/lib/hooks";
-import { authSelector } from "@/lib/selector";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { authSelector, themeSelector } from "@/lib/selector";
+import { setTheme } from "@/lib/features/themeSlice";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useAppSelector(authSelector);
+  const { theme } = useAppSelector(themeSelector);
+  const dispatch = useAppDispatch()
+
+  const themeHandle = () => {
+    dispatch(setTheme(theme == 'dark' ? 'light' : 'dark'))
+  }
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -52,7 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <h1 className="text-xl font-bold text-white">BMessage</h1>
                   <div className="flex items-center gap-2">
                     <Sun className="size-4 text-white/80" />
-                    <Switch />
+                    <Switch checked={theme == 'dark'} onCheckedChange={themeHandle} />
                     <Moon className="size-4 text-white/80" />
                   </div>
                 </div>
