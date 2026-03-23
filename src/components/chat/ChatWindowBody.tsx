@@ -2,6 +2,7 @@ import { useAppSelector } from "@/lib/hooks";
 import { chatSelector } from "@/lib/selector";
 import ChatWelcomeScreen from "./ChatWelcomeScreen";
 import MessageItem from "./MessageItem";
+import { useLayoutEffect, useRef } from "react";
 
 const ChatWindowBody = () => {
   const {
@@ -9,11 +10,18 @@ const ChatWindowBody = () => {
     activeConversationId,
     messages: allMessages,
   } = useAppSelector(chatSelector);
+  const scrollPointRef= useRef<HTMLDivElement>(null);
 
   const messages = allMessages[activeConversationId!]?.items ?? [];
   const selectedConvo = conversations.find(
     (convo) => convo._id === activeConversationId,
   );
+  
+  useLayoutEffect(() => {
+    if (!scrollPointRef.current) return
+
+    scrollPointRef.current?.scrollIntoView({ behavior: 'smooth' , block: 'end' })
+  }, [activeConversationId])
 
   if (!selectedConvo) {
     return <ChatWelcomeScreen />;
@@ -41,6 +49,7 @@ const ChatWindowBody = () => {
           />
         ))}
       </div>
+      <div ref={scrollPointRef}></div>
     </div>
   );
 };
