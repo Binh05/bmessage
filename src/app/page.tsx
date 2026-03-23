@@ -6,7 +6,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default function Page() {
   return (
-    <SidebarProvider>
+    <SidebarProvider >
       <AppSidebar />
       <div className="flex h-screen w-full p-2">
         <ChatWindowLayout />
