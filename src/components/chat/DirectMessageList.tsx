@@ -10,11 +10,7 @@ function DirectMessageList() {
   );
 
   return (
-    <div className="mt-8 flex flex-col gap-2 p-1">
-      <div className="flex justify-between">
-        <p className="text-muted-foreground text-sm uppercase">Bạn Bè</p>
-        <UserPlus className="size-4" />
-      </div>
+    <div className="flex flex-col">
       {directConversation.map((convo) => (
         <DirectMessageCard convo={convo} key={convo._id} />
       ))}
