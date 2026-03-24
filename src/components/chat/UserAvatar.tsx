@@ -28,7 +28,7 @@ function UserAvatar({
     >
       <AvatarImage src={avatarUrl} alt="avatar friend" />
       <AvatarFallback className={`${bgColor} font-semibold text-white`}>
-        {name.charAt(0)}
+        {name.charAt(0).toUpperCase()}
       </AvatarFallback>
     </Avatar>
   );

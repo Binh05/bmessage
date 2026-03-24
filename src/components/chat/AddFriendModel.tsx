@@ -57,13 +57,14 @@ export default function AddFriendModel() {
           <span className="sr-only">Kết bạn</span>
         </div>
       </DialogTrigger>
-      <DialogContent className="border-non border-border/30 glass max-h-[95vh] sm:max-w-106.25">
+      <DialogContent className="border-border/30 glass max-h-[95vh] sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>Tìm người dùng</DialogTitle>
           <DialogDescription>
             Khám phá và kết nối những người bạn mới
           </DialogDescription>
         </DialogHeader>
+
         <SearchFriendForm
           register={register}
           errors={errors}

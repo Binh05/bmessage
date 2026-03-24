@@ -5,9 +5,10 @@ import { Card, CardFooter } from "../ui/card";
 
 interface FriendCardProps {
   user: User;
+  isFriend?: boolean;
 }
 
-function FriendCard({ user }: FriendCardProps) {
+function FriendCard({ user, isFriend }: FriendCardProps) {
   return (
     <Card className="glass border-none py-3 pl-3">
       <div className="flex items-center justify-between">

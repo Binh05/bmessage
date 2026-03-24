@@ -39,6 +39,7 @@ function SearchFriendForm({
     <>
       <form onSubmit={searchHandle}>
         <div className="space-y-4">
+          {/* Input */}
           <InputGroup className="glass border-border/50 focus:border-primary/50 transition-smooth">
             <InputGroupInput
               placeholder="Nhập tên để tìm kiếm ..."
@@ -51,14 +52,18 @@ function SearchFriendForm({
               <Search />
             </InputGroupAddon>
           </InputGroup>
+          {/* error */}
           {errors.username && (
             <p className="text-destructive">{errors.username.message}</p>
           )}
+          {/* Not found */}
           {!isFound && <p>Không tìm thất @{searchUsername}</p>}
-          <div className="beautiful-scrollbar overflow-y-auto">
+          {/* List */}
+          <div className="beautiful-scrollbar max-h-120 space-y-4 overflow-scroll">
             {isFound &&
               searchedUser.map((u) => <FriendCard key={u._id} user={u} />)}
           </div>
+          {/* Footer */}
           <DialogFooter>
             <DialogClose asChild>
               <Button
