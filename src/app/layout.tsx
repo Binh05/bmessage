@@ -32,6 +32,7 @@ export default function RootLayout({
       >
         <StoreProvider>
           <SocketClient />
+          <Toaster position="top-right" />
           {children}
         </StoreProvider>
         <Toaster position="top-right" richColors />
