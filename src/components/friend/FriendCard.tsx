@@ -5,7 +5,7 @@ import { Card, CardFooter } from "../ui/card";
 
 interface FriendCardProps {
   user: User;
-  isFriend?: boolean;
+  isFriend: boolean;
 }
 
 function FriendCard({ user, isFriend }: FriendCardProps) {
@@ -21,15 +21,18 @@ function FriendCard({ user, isFriend }: FriendCardProps) {
           <p>{user.username}</p>
         </div>
         <CardFooter>
-          <Button variant={"outline"} size={"sm"}>
-            Nhắn tin
-          </Button>
-          <Button
-            size="sm"
-            className="bg-gradient-primary cursor-pointer border-2 border-white hover:opacity-90"
-          >
-            Kết bạn
-          </Button>
+          {isFriend ? (
+            <Button variant={"outline"} size={"sm"}>
+              Nhắn tin
+            </Button>
+          ) : (
+            <Button
+              size="sm"
+              className="bg-gradient-primary cursor-pointer border-2 border-white hover:opacity-90"
+            >
+              Kết bạn
+            </Button>
+          )}
         </CardFooter>
       </div>
     </Card>

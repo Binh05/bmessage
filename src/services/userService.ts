@@ -1,7 +1,7 @@
 import { api } from "@/lib/api";
 
-const searchUser = async (username: string) => {
-  const res = await api.get(`/user?username=${username}`);
+const searchUser = async (email: string) => {
+  const res = await api.get(`/user?email=${email}`);
 
   return res.data;
 };

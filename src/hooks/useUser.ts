@@ -1,9 +1,9 @@
 import { userService } from "@/services/userService";
 
 export const useUser = () => {
-  const searchUser = async (username: string) => {
+  const searchUser = async (email: string) => {
     try {
-      const data = await userService.searchUser(username);
+      const data = await userService.searchUser(email);
 
       console.log("search user data", data);
       return data;

@@ -14,13 +14,17 @@ import { useState } from "react";
 import { User } from "@/types/user";
 
 export interface IUseFormSearch {
-  username: string;
+  email: string;
+}
+
+export interface ISearchedUser extends User {
+  isFriend: boolean;
 }
 
 export default function AddFriendModel() {
   const [isFound, setIsFound] = useState<boolean>(true);
   const [searchUsername, setSearchUsername] = useState<string>("");
-  const [searchedUser, setSearchedUser] = useState<User[]>([]);
+  const [searchedUser, setSearchedUser] = useState<ISearchedUser | null>(null);
   const {
     register,
     handleSubmit,
@@ -29,24 +33,27 @@ export default function AddFriendModel() {
     formState: { errors, isSubmitting },
   } = useForm<IUseFormSearch>({
     defaultValues: {
-      username: "",
+      email: "",
     },
   });
   const { searchUser } = useUser();
 
-  const usernameValue = watch("username");
+  const usernameValue = watch("email");
 
   const searchSubmit = handleSubmit(async (data) => {
-    const { users } = await searchUser(data.username.trim());
-    setSearchUsername(data.username);
+    const { user } = await searchUser(data.email.trim());
+    setSearchUsername(data.email);
 
-    setIsFound(users.length != 0);
-    setSearchedUser(users);
+    console.log(user);
+
+    setIsFound(user != null);
+    setSearchedUser(user);
   });
 
   const handleCancel = () => {
     reset();
     setSearchUsername("");
+    setSearchedUser(null);
   };
 
   return (
@@ -74,7 +81,7 @@ export default function AddFriendModel() {
           isFound={isFound}
           searchUsername={searchUsername}
           onCancel={handleCancel}
-          searchedUser={searchedUser}
+          user={searchedUser}
         />
       </DialogContent>
     </Dialog>
