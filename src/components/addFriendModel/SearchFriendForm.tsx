@@ -8,8 +8,9 @@ import { Button } from "../ui/button";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { ISearchedUser, IUseFormSearch } from "../chat/AddFriendModel";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import FriendCard from "../friend/FriendCard";
+import { useFriend } from "@/hooks/useFriend";
 
 interface searchFormProps {
   errors: FieldErrors<IUseFormSearch>;
@@ -34,6 +35,14 @@ function SearchFriendForm({
   onCancel,
   user,
 }: searchFormProps) {
+  const { sendFriendRequest } = useFriend();
+  const [sent, setSent] = useState(false);
+
+  const sendHandle = () => {
+    if (!user) return;
+    sendFriendRequest(user._id);
+    setSent(true);
+  };
   return (
     <form onSubmit={searchHandle}>
       <div className="space-y-4">
@@ -58,7 +67,26 @@ function SearchFriendForm({
         {/* List */}
         <div className="beautiful-scrollbar max-h-120 space-y-4 overflow-scroll">
           {isFound && user != null && (
-            <FriendCard key={user._id} user={user} isFriend={user.isFriend} />
+            <FriendCard
+              key={user._id}
+              user={user}
+              action={
+                user.isFriend ? (
+                  <Button variant={"outline"} size={"sm"}>
+                    Nhắn tin
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    onClick={() => sendHandle()}
+                    disabled={sent}
+                    className="bg-gradient-primary cursor-pointer border-2 border-white hover:opacity-90"
+                  >
+                    {sent ? "Đã gửi" : "Kết bạn"}
+                  </Button>
+                )
+              }
+            />
           )}
         </div>
         {/* Footer */}

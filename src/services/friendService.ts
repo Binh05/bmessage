@@ -6,4 +6,10 @@ const sendFriendRequest = async (friendId: string) => {
   return res.data;
 };
 
-export const friendService = { sendFriendRequest };
+const getFriendRequest = async () => {
+  const res = await api.get("/friends/requests");
+
+  return res.data;
+};
+
+export const friendService = { sendFriendRequest, getFriendRequest };

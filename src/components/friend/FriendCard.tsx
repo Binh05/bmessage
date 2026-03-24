@@ -1,23 +1,15 @@
-import { User } from "@/types/user";
+import { Friend } from "@/types/user";
 import UserAvatar from "../chat/UserAvatar";
-import { Button } from "../ui/button";
 import { Card, CardFooter } from "../ui/card";
-import { useFriend } from "@/hooks/useFriend";
-import { useState } from "react";
+import { ReactNode } from "react";
 
 interface FriendCardProps {
-  user: User;
-  isFriend: boolean;
+  user?: Friend;
+  action: ReactNode;
 }
 
-function FriendCard({ user, isFriend }: FriendCardProps) {
-  const sendFriendRequest = useFriend();
-  const [sent, setSent] = useState(false);
-
-  const sendHandle = () => {
-    sendFriendRequest(user._id);
-    setSent(true);
-  };
+function FriendCard({ user, action }: FriendCardProps) {
+  if (!user) return;
 
   return (
     <Card className="glass border-none py-3 pl-3">
@@ -28,24 +20,12 @@ function FriendCard({ user, isFriend }: FriendCardProps) {
             name={user.username}
             avatarUrl={user.avatarUrl}
           />
-          <p>{user.username}</p>
+          <div>
+            <p>{user.username}</p>
+            <p>{user.email}</p>
+          </div>
         </div>
-        <CardFooter>
-          {isFriend ? (
-            <Button variant={"outline"} size={"sm"}>
-              Nhắn tin
-            </Button>
-          ) : (
-            <Button
-              size="sm"
-              onClick={() => sendHandle()}
-              disabled={sent}
-              className="bg-gradient-primary cursor-pointer border-2 border-white hover:opacity-90"
-            >
-              {sent ? "Đã gửi" : "Kết bạn"}
-            </Button>
-          )}
-        </CardFooter>
+        <CardFooter>{action}</CardFooter>
       </div>
     </Card>
   );
