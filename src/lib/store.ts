@@ -6,6 +6,7 @@ import { createTransform, persistReducer } from "redux-persist";
 import { initialState as iStateChat } from "./features/chatSlice";
 import { socketReducer } from "./features/socketSlice";
 import { theme } from "./features/themeSlice";
+import { friend } from "./features/friendSlide";
 
 const chatTransform = createTransform(
   (inboundState: any) => {
@@ -25,7 +26,7 @@ const chatTransform = createTransform(
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "chat", 'theme'],
+  whitelist: ["auth", "chat", "theme"],
   transforms: [chatTransform],
 };
 
@@ -33,7 +34,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   chat: chatReducer,
   socket: socketReducer,
-  theme
+  theme,
+  friend,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
