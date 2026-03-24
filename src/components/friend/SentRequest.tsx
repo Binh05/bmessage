@@ -2,9 +2,11 @@ import { useAppSelector } from "@/lib/hooks";
 import { friendSelector } from "@/lib/selector";
 import FriendCard from "./FriendCard";
 import { Button } from "../ui/button";
+import { useFriend } from "@/hooks/useFriend";
 
 const SentRequest = () => {
   const { sentList } = useAppSelector(friendSelector);
+  const { cancelFriendRequest } = useFriend();
 
   if (!sentList)
     return (
@@ -14,13 +16,14 @@ const SentRequest = () => {
     );
 
   return (
-    <div className="space-y-1">
+    <div className="flex flex-col gap-1.5">
       {sentList.map((s) => (
         <FriendCard
           key={s._id}
           user={s.to}
           action={
             <Button
+              onClick={() => cancelFriendRequest(s._id)}
               variant={"destructive"}
               className="cursor-pointer hover:opacity-90"
             >

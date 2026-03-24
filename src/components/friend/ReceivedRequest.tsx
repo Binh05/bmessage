@@ -15,7 +15,7 @@ const ReceivedRequest = () => {
     );
 
   return (
-    <div className="space-y-1">
+    <div className="flex flex-col gap-1.5">
       {receivedList.map((r) => (
         <FriendCard
           key={r._id}
