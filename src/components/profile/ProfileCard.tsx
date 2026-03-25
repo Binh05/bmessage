@@ -13,9 +13,7 @@ export default function ProfileCard({ user }: { user: User | null }) {
 
   const isOnline = onlineUsers.includes(user?._id) ? true : false;
 
-  if (!user?.bio) {
-    user.bio = "Hãy chia sẽ về bản thân mình";
-  }
+  const bio = !user.bio ? "Hãy chia sẽ về bản thân mình" : user.bio;
 
   return (
     <Card className="mb-2 h-52 overflow-hidden border-0 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 p-0">
@@ -34,9 +32,9 @@ export default function ProfileCard({ user }: { user: User | null }) {
           <h1 className="text-2xl font-semibold tracking-tight text-white">
             {user?.username}
           </h1>
-          {user.bio && (
+          {bio && (
             <p className="mt-2 line-clamp-2 max-w-lg text-sm text-white/70">
-              {user.bio}
+              {bio}
             </p>
           )}
         </div>

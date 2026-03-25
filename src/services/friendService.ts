@@ -19,13 +19,13 @@ const cancelFriendRequest = async (requestId: string) => {
 };
 
 const acceptFriendRequest = async (requestId: string) => {
-  const res = await api.post(`/friends/${requestId}/accept`);
+  const res = await api.post(`/friends/requests/${requestId}/accept`);
 
   return res.data;
 };
 
 const declineFriendRequest = async (requestId: string) => {
-  const res = await api.post(`/friends/${requestId}/decline`);
+  const res = await api.post(`/friends/requests/${requestId}/decline`);
 
   return res.data;
 };
