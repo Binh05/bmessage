@@ -38,7 +38,7 @@ export default function ProfileDialog({ open, setOpen }: Props) {
             <ProfileCard user={user} />
 
             <Tabs>
-              <TabsList className="glass-light grid w-full grid-cols-2">
+              <TabsList className="glass-light mt-2 grid w-full grid-cols-2">
                 <TabsTrigger
                   value="info"
                   className="data-[state=active]:glass-strong"
