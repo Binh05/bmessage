@@ -33,6 +33,9 @@ const FriendRequestDialog = ({ open, setOpen }: FriendRequestProps) => {
       <DialogContent className="border-border/30 beautiful-scrollbar max-h-[95vh] overflow-x-hidden overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Lời mời kết bạn</DialogTitle>
+          <DialogDescription className="sr-only">
+            Lời mời kết bạn
+          </DialogDescription>
         </DialogHeader>
 
         {/* Tabs */}

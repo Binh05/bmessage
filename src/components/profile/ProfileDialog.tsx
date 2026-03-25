@@ -1,5 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 import ProfileCard from "./ProfileCard";
 import { useAppSelector } from "@/lib/hooks";
 import { authSelector } from "@/lib/selector";
@@ -20,7 +26,9 @@ export default function ProfileDialog({ open, setOpen }: Props) {
         <DialogHeader>
           <DialogTitle>Profile & Settings</DialogTitle>
         </DialogHeader>
-
+        <DialogDescription className="sr-only">
+          Profile and Settings
+        </DialogDescription>
         <ProfileCard user={user} />
 
         <Tabs>
