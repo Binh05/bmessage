@@ -65,7 +65,7 @@ function SearchFriendForm({
         {/* Not found */}
         {!isFound && <p>Không tìm thất @{searchUsername}</p>}
         {/* List */}
-        <div className="beautiful-scrollbar max-h-120 space-y-4 overflow-scroll">
+        <div className="max-h-120 space-y-4">
           {isFound && user != null && (
             <FriendCard
               key={user._id}
