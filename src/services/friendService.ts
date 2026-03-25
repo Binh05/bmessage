@@ -12,4 +12,28 @@ const getFriendRequest = async () => {
   return res.data;
 };
 
-export const friendService = { sendFriendRequest, getFriendRequest };
+const cancelFriendRequest = async (requestId: string) => {
+  const res = await api.post(`/friends/requests/${requestId}/cancel`);
+
+  return res.data;
+};
+
+const acceptFriendRequest = async (requestId: string) => {
+  const res = await api.post(`/friends/${requestId}/accept`);
+
+  return res.data;
+};
+
+const declineFriendRequest = async (requestId: string) => {
+  const res = await api.post(`/friends/${requestId}/decline`);
+
+  return res.data;
+};
+
+export const friendService = {
+  sendFriendRequest,
+  getFriendRequest,
+  cancelFriendRequest,
+  acceptFriendRequest,
+  declineFriendRequest,
+};

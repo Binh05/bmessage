@@ -14,15 +14,17 @@ function FriendCard({ user, action }: FriendCardProps) {
   return (
     <Card className="glass border-none py-3 pl-3">
       <div className="flex items-center justify-between">
-        <div className="flex gap-3">
+        <div className="flex min-w-0 flex-1 gap-3">
           <UserAvatar
             type="sidebar"
             name={user.username}
             avatarUrl={user.avatarUrl}
           />
           <div>
-            <p>{user.username}</p>
-            <p>{user.email}</p>
+            <p className="truncate font-medium">{user.username}</p>
+            <p className="text-muted-foreground truncate text-sm">
+              {user.email}
+            </p>
           </div>
         </div>
         <CardFooter>{action}</CardFooter>

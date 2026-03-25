@@ -2,10 +2,11 @@ import { useAppSelector } from "@/lib/hooks";
 import { friendSelector } from "@/lib/selector";
 import FriendCard from "./FriendCard";
 import { Button } from "../ui/button";
-import { ScrollArea } from "../ui/scroll-area";
+import { useFriend } from "@/hooks/useFriend";
 
 const ReceivedRequest = () => {
-  const { receivedList } = useAppSelector(friendSelector);
+  const { receivedList, loading } = useAppSelector(friendSelector);
+  const { acceptFriendRequest, declineFriendRequest } = useFriend();
 
   if (receivedList.length == 0)
     return (
@@ -21,9 +22,23 @@ const ReceivedRequest = () => {
           key={r._id}
           user={r.from}
           action={
-            <Button className="bg-gradient-primary cursor-pointer hover:opacity-90">
-              Chấp nhận
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                disabled={loading}
+                onClick={() => declineFriendRequest(r._id)}
+                variant="ghost"
+                className="cursor-pointer"
+              >
+                Từ chối
+              </Button>
+              <Button
+                disabled={loading}
+                onClick={() => acceptFriendRequest(r._id)}
+                className="bg-gradient-primary cursor-pointer hover:opacity-90"
+              >
+                Chấp nhận
+              </Button>
+            </div>
           }
         />
       ))}

@@ -16,13 +16,35 @@ const friendSlice = createSlice({
     setFriends: (state, action: PayloadAction<Friend[]>) => {
       state.friends = action.payload;
     },
+    addFriend: (state, action: PayloadAction<Friend>) => {
+      state.friends.push(action.payload);
+    },
+    removeFriends: (state, action: PayloadAction<Friend>) => {
+      state.friends = state.friends.filter((f) => f._id != action.payload._id);
+    },
     setReceived: (state, action: PayloadAction<FriendRequest[]>) => {
       state.receivedList = action.payload;
+    },
+    addReceived: (state, action: PayloadAction<FriendRequest>) => {
+      state.receivedList.push(action.payload);
+    },
+    removeReceived: (state, action: PayloadAction<FriendRequest>) => {
+      state.receivedList = state.receivedList.filter(
+        (r) => r.from?._id != action.payload._id,
+      );
     },
     setSent: (state, action: PayloadAction<FriendRequest[]>) => {
       state.sentList = action.payload;
     },
-    setLoading: (state, action) => {
+    addSent: (state, action: PayloadAction<FriendRequest>) => {
+      state.sentList.push(action.payload);
+    },
+    removeSent: (state, action: PayloadAction<FriendRequest>) => {
+      state.sentList = state.sentList.filter(
+        (s) => s.to?._id != action.payload._id,
+      );
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
     resetFriendState: (state) => {
@@ -34,6 +56,16 @@ const friendSlice = createSlice({
   },
 });
 
-export const { setFriends, setReceived, setSent, setLoading } =
-  friendSlice.actions;
+export const {
+  setFriends,
+  addFriend,
+  removeFriends,
+  setReceived,
+  addReceived,
+  removeReceived,
+  setSent,
+  addSent,
+  removeSent,
+  setLoading,
+} = friendSlice.actions;
 export const friend = friendSlice.reducer;

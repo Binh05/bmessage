@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { useFriend } from "@/hooks/useFriend";
 
 const SentRequest = () => {
-  const { sentList } = useAppSelector(friendSelector);
+  const { sentList, loading } = useAppSelector(friendSelector);
   const { cancelFriendRequest } = useFriend();
 
   if (!sentList)
@@ -23,8 +23,9 @@ const SentRequest = () => {
           user={s.to}
           action={
             <Button
+              disabled={loading}
               onClick={() => cancelFriendRequest(s._id)}
-              variant={"destructive"}
+              variant={"ghost"}
               className="cursor-pointer hover:opacity-90"
             >
               Thu hồi

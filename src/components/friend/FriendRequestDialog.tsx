@@ -1,5 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Dialog, DialogHeader, DialogTitle, DialogContent } from "../ui/dialog";
+import {
+  Dialog,
+  DialogHeader,
+  DialogTitle,
+  DialogContent,
+  DialogDescription,
+} from "../ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { useFriend } from "@/hooks/useFriend";
 import SentRequest from "./SentRequest";
@@ -24,7 +30,7 @@ const FriendRequestDialog = ({ open, setOpen }: FriendRequestProps) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="border-border/30 beautiful-scrollbar max-h-[95vh] overflow-auto sm:max-w-lg">
+      <DialogContent className="border-border/30 beautiful-scrollbar max-h-[95vh] overflow-x-hidden overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Lời mời kết bạn</DialogTitle>
         </DialogHeader>
