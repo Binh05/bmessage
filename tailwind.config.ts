@@ -4,7 +4,7 @@ import tailwindScrollbar from "tailwind-scrollbar";
 
 export default {
   content: [
-    ".src/app/**/*.{ts,tsx}",
+    "./src/app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
     "./src/components/**/*.{ts,tsx}",
   ],
