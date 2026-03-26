@@ -23,7 +23,6 @@ export const useAuth = () => {
       await fetchConversations();
 
       router.push("/");
-      window.location.href = "/";
     } catch (error: any) {
       console.log(error);
       toast.error(error?.message ?? "Đã xảy ra lỗi. Hãy thử lại!");
