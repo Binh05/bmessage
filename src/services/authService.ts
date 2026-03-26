@@ -6,17 +6,19 @@ export const authService = {
   },
 
   signIn: async (email: string, password: string) => {
-    const res = await api.post(`/auth/signin`, { email, password })
+    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
+    const res = await api.post(`/auth/signin`, { email, password });
 
-    console.log(res.data)
     return res.data;
   },
 
   signUp: async (username: string, email: string, password: string) => {
     const res = await api.post("/auth/signout", {
-      username, email, password
-    })
+      username,
+      email,
+      password,
+    });
 
-    return res.data
-  }
+    return res.data;
+  },
 };
