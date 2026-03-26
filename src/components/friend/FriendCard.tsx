@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 interface FriendCardProps extends HTMLAttributes<HTMLDivElement> {
   user?: Friend;
   action: ReactNode;
-  className: string;
+  className?: string;
 }
 
 function FriendCard({ user, action, className, ...props }: FriendCardProps) {
