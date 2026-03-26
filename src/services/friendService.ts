@@ -30,10 +30,17 @@ const declineFriendRequest = async (requestId: string) => {
   return res.data;
 };
 
+const getFriends = async () => {
+  const res = await api.get("/friends");
+
+  return res.data;
+};
+
 export const friendService = {
   sendFriendRequest,
   getFriendRequest,
   cancelFriendRequest,
   acceptFriendRequest,
   declineFriendRequest,
+  getFriends,
 };

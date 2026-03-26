@@ -3,6 +3,7 @@ import {
   addSent,
   removeReceived,
   removeSent,
+  setFriends,
   setLoading,
   setReceived,
   setSent,
@@ -92,11 +93,22 @@ export const useFriend = () => {
     }
   };
 
+  const getFriends = async () => {
+    try {
+      const data = await friendService.getFriends();
+
+      dispatch(setFriends(data.friends));
+    } catch (error) {
+      console.error("Lỗi load danh sách bạn bè", error);
+    }
+  };
+
   return {
     sendFriendRequest,
     getFriendRequest,
     cancelFriendRequest,
     acceptFriendRequest,
     declineFriendRequest,
+    getFriends,
   };
 };

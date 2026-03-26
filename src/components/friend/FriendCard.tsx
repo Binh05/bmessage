@@ -1,18 +1,20 @@
 import { Friend } from "@/types/user";
 import UserAvatar from "../chat/UserAvatar";
 import { Card, CardFooter } from "../ui/card";
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
-interface FriendCardProps {
+interface FriendCardProps extends HTMLAttributes<HTMLDivElement> {
   user?: Friend;
   action: ReactNode;
+  className: string;
 }
 
-function FriendCard({ user, action }: FriendCardProps) {
+function FriendCard({ user, action, className, ...props }: FriendCardProps) {
   if (!user) return;
 
   return (
-    <Card className="glass border-none py-3 pl-3">
+    <Card className={cn("glass border-none py-3 pl-3", className)} {...props}>
       <div className="flex items-center justify-between">
         <div className="flex min-w-0 flex-1 gap-3">
           <UserAvatar

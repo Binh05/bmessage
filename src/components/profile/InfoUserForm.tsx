@@ -23,6 +23,7 @@ interface UserInfoFormProps {
 
 export default function InfoUserForm({ user }: UserInfoFormProps) {
   if (!user) return;
+
   return (
     <Card className="glass-strong border-border/30">
       <CardHeader>

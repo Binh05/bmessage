@@ -11,6 +11,7 @@ import { useAppSelector } from "@/lib/hooks";
 import { authSelector } from "@/lib/selector";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import InfoUserForm from "./InfoUserForm";
+import FriendList from "../friend/FriendList";
 
 interface Props {
   open: boolean;
@@ -52,8 +53,13 @@ export default function ProfileDialog({ open, setOpen }: Props) {
                   Bạn bè
                 </TabsTrigger>
               </TabsList>
+
               <TabsContent value="info">
                 <InfoUserForm user={user} />
+              </TabsContent>
+
+              <TabsContent value="friends">
+                <FriendList />
               </TabsContent>
             </Tabs>
           </div>
