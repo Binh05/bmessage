@@ -11,6 +11,18 @@ export const useAuth = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const SignUp = async (username: string, email: string, password: string) => {
+    try {
+      await authService.signUp(username, email, password);
+
+      toast.success("Đăng ký thành công");
+      router.push("/login");
+    } catch (error) {
+      console.log("Lỗi khi đăng ký", error);
+      toast.error("Đã xảy ra lỗi. Hãy thử lại");
+    }
+  };
+
   const SignIn = async (email: string, password: string) => {
     try {
       localStorage.clear();
@@ -46,5 +58,5 @@ export const useAuth = () => {
     }
   };
 
-  return { SignIn, SignOut };
+  return { SignUp, SignIn, SignOut };
 };

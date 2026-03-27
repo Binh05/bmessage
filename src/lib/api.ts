@@ -3,7 +3,7 @@ import { AppStore } from "./store";
 import { clearState, setToken } from "./features/authSlice";
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/v1",
+  baseURL: "/api-proxy",
   withCredentials: true,
 });
 let store: AppStore;

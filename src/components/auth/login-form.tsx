@@ -40,7 +40,7 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0 border-border">
+      <Card className="border-border overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8" onSubmit={handleSubmit(onLogin)}>
             <FieldGroup>
@@ -90,9 +90,9 @@ export function LoginForm({
           </form>
           <div className="bg-muted relative hidden md:block">
             <img
-              src="/placeholder.svg"
+              src="/illusionContact.svg"
               alt="Image"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+              className="absolute top-1/2 left-1/2 h-3/4 w-3/4 -translate-1/2 object-cover dark:brightness-[0.2] dark:grayscale"
             />
           </div>
         </CardContent>
