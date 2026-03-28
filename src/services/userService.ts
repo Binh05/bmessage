@@ -6,6 +6,13 @@ const searchUser = async (email: string) => {
   return res.data;
 };
 
+const fetchMe = async () => {
+  const res = await api.get("/user/me");
+
+  return res.data.user;
+};
+
 export const userService = {
   searchUser,
+  fetchMe,
 };
