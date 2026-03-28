@@ -19,8 +19,8 @@ const friendSlice = createSlice({
     addFriend: (state, action: PayloadAction<Friend>) => {
       state.friends.push(action.payload);
     },
-    removeFriends: (state, action: PayloadAction<Friend>) => {
-      state.friends = state.friends.filter((f) => f._id != action.payload._id);
+    removeFriend: (state, action: PayloadAction<string>) => {
+      state.friends = state.friends.filter((f) => f._id != action.payload);
     },
     setReceived: (state, action: PayloadAction<FriendRequest[]>) => {
       state.receivedList = action.payload;
@@ -59,7 +59,7 @@ const friendSlice = createSlice({
 export const {
   setFriends,
   addFriend,
-  removeFriends,
+  removeFriend,
   setReceived,
   addReceived,
   removeReceived,

@@ -5,10 +5,10 @@ import CreateConvoModel from "./CreateConvoModel";
 
 const CreateConvoCard = () => {
   return (
-    <Card className="transition-smooth glass border-none p-0 active:scale-90">
+    <Card className="glass border-none p-0">
       <Dialog>
         <DialogTrigger>
-          <div className="group flex cursor-pointer items-center gap-4 p-3">
+          <div className="group hover:bg-muted/50 transition-smooth flex cursor-pointer items-center gap-4 rounded-lg p-3">
             <div className="bg-gradient-primary transition-bounce rounded-full p-2">
               <MessageCircle className="z-10 size-4 text-white" />
             </div>

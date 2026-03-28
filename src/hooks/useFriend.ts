@@ -1,6 +1,7 @@
 import {
   addFriend,
   addSent,
+  removeFriend,
   removeReceived,
   removeSent,
   setFriends,
@@ -103,6 +104,18 @@ export const useFriend = () => {
     }
   };
 
+  const unfriend = async (friendId: string) => {
+    try {
+      const { message, friendshipsId } = await friendService.unfriend(friendId);
+
+      dispatch(removeFriend(friendshipsId));
+      toast.success(message);
+    } catch (error) {
+      console.error("Lỗi khi hủy kết bạn", error);
+      toast.error("Lỗi khi hủy kết bạn");
+    }
+  };
+
   return {
     sendFriendRequest,
     getFriendRequest,
@@ -110,5 +123,6 @@ export const useFriend = () => {
     acceptFriendRequest,
     declineFriendRequest,
     getFriends,
+    unfriend,
   };
 };

@@ -36,6 +36,12 @@ const getFriends = async () => {
   return res.data;
 };
 
+const unfriend = async (friendId: string) => {
+  const res = await api.delete(`/friends/${friendId}/unfriend`);
+
+  return res.data;
+};
+
 export const friendService = {
   sendFriendRequest,
   getFriendRequest,
@@ -43,4 +49,5 @@ export const friendService = {
   acceptFriendRequest,
   declineFriendRequest,
   getFriends,
+  unfriend,
 };

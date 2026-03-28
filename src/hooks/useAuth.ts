@@ -1,7 +1,7 @@
 import { authService } from "@/services/authService";
 import { useChat } from "./useChat";
 import { toast } from "sonner";
-import { clearState, setAuth } from "@/lib/features/authSlice";
+import { clearState, setAuth, setLoading } from "@/lib/features/authSlice";
 import { useAppDispatch } from "@/lib/hooks";
 import { useRouter } from "next/navigation";
 import { clearChat } from "@/lib/features/chatSlice";
@@ -27,6 +27,8 @@ export const useAuth = () => {
     try {
       localStorage.clear();
 
+      dispatch(setLoading(true));
+
       const { accessToken, user } = await authService.signIn(email, password);
 
       toast.success("Dang nhap thanh cong");
@@ -38,6 +40,8 @@ export const useAuth = () => {
     } catch (error: any) {
       console.log(error);
       toast.error(error?.message ?? "Đã xảy ra lỗi. Hãy thử lại!");
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
