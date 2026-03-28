@@ -10,7 +10,7 @@ function DirectMessageList() {
   );
 
   return (
-    <div className="flex flex-col">
+    <div className="mt-2 flex flex-col gap-2">
       {directConversation.map((convo) => (
         <DirectMessageCard convo={convo} key={convo._id} />
       ))}

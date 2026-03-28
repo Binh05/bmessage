@@ -1,4 +1,5 @@
 import {
+  addConvo,
   addMessageRealtime,
   resetSeenBy,
   setConversations,
@@ -51,7 +52,6 @@ export const useChat = () => {
     dispatch(setMessageLoading(true));
 
     try {
-
       const { messages: fetched, cursor } = await chatService.fetchMessages(
         convoId,
         nextCursor,
@@ -122,5 +122,26 @@ export const useChat = () => {
     }
   };
 
-  return { fetchMessages, fetchConversations, sendDirectMessage, addMessage };
+  const createConvo = async (
+    type: "direct" | "group",
+    name: string,
+    memberIds: string[],
+  ) => {
+    try {
+      const convo = await chatService.createConvo(type, name, memberIds);
+
+      dispatch(addConvo(convo));
+      fetchMessages(convo._id);
+    } catch (error) {
+      console.error("Lỗi khi create convo", error);
+    }
+  };
+
+  return {
+    fetchMessages,
+    fetchConversations,
+    sendDirectMessage,
+    addMessage,
+    createConvo,
+  };
 };

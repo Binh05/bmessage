@@ -8,7 +8,7 @@ const SentRequest = () => {
   const { sentList, loading } = useAppSelector(friendSelector);
   const { cancelFriendRequest } = useFriend();
 
-  if (!sentList)
+  if (sentList.length == 0)
     return (
       <p className="text-muted-foreground text-center text-sm">
         Bạn chưa gửi lời mời kết bạn nào.

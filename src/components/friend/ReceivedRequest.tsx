@@ -11,7 +11,7 @@ const ReceivedRequest = () => {
   if (receivedList.length == 0)
     return (
       <p className="text-muted-foreground text-center text-sm">
-        Bạn chưa gửi lời mời kết bạn nào.
+        Bạn chưa nhận được lời mời kết bạn nào.
       </p>
     );
 

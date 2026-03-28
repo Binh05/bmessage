@@ -30,6 +30,14 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
+    addConvo: (state, action: PayloadAction<Conversation>) => {
+      const existConvo = state.conversations.some(
+        (convo) => convo._id == action.payload._id,
+      );
+      if (!existConvo)
+        state.conversations = [action.payload, ...state.conversations];
+      state.activeConversationId = action.payload._id;
+    },
     setChat: (state, action: PayloadAction<InitialState>) => {
       state.conversations = action.payload.conversations;
       state.messages = action.payload.messages;
@@ -104,6 +112,7 @@ const chatSlice = createSlice({
 
 export const chatReducer = chatSlice.reducer;
 export const {
+  addConvo,
   setChat,
   setActiveConversationId,
   clearChat,

@@ -23,6 +23,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { authSelector, themeSelector } from "@/lib/selector";
 import { setTheme } from "@/lib/features/themeSlice";
 import AddFriendModel from "../chat/AddFriendModel";
+import CreateConvoCard from "../createNewConvo/CreateConvoCard";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useAppSelector(authSelector);
@@ -63,7 +64,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         {/* Content */}
         <SidebarGroup>
+          <SidebarGroupAction asChild>
+            <CreateConvoCard />
+          </SidebarGroupAction>
+        </SidebarGroup>
+        {/* friend */}
+        <SidebarGroup>
           <SidebarGroupLabel className="uppercase">bạn bè</SidebarGroupLabel>
+
           <SidebarGroupAction>
             <AddFriendModel />
           </SidebarGroupAction>
