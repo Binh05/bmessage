@@ -38,16 +38,18 @@ api.interceptors.response.use(
 
       const res = await api.post("auth/refresh");
 
-      const newAccessToken = res.data;
+      const { accessToken } = res.data;
 
-      if (!newAccessToken) {
+      console.log(accessToken);
+
+      if (!accessToken) {
         store.dispatch(clearState);
         return Promise.reject(err);
       }
 
-      store.dispatch(setToken(newAccessToken));
+      store.dispatch(setToken(accessToken));
 
-      originRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+      originRequest.headers.Authorization = `Bearer ${accessToken}`;
       return api(originRequest);
     }
 
