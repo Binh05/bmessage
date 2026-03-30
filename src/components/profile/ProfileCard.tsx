@@ -5,6 +5,7 @@ import { Badge } from "../ui/badge";
 import { useAppSelector } from "@/lib/hooks";
 import { socketSelector } from "@/lib/selector";
 import { cn } from "@/lib/utils";
+import AvatarUpload from "./AvatarUpload";
 
 export default function ProfileCard({ user }: { user: User | null }) {
   const { onlineUsers } = useAppSelector(socketSelector);
@@ -18,12 +19,13 @@ export default function ProfileCard({ user }: { user: User | null }) {
   return (
     <Card className="mb-2 h-52 overflow-hidden border-0 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 p-0">
       <CardContent className="mt-20 flex flex-col items-center gap-6 pb-8 sm:flex-row sm:items-end">
-        <div className="">
+        <div className="relative rounded-full border-2 border-white">
           <UserAvatar
             type="profile"
             name={user?.username ?? "bmessage"}
             avatarUrl={user?.avatarUrl ?? ""}
           />
+          <AvatarUpload />
         </div>
 
         {/* info user */}

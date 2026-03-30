@@ -1,5 +1,6 @@
 import { User } from "@/types/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { toast } from "sonner";
 
 interface Auth {
   token: string | null;
@@ -33,6 +34,11 @@ const authSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
+    setAvatar: (state, action: PayloadAction<string>) => {
+      if (!state.user) return;
+
+      state.user.avatarUrl = action.payload;
+    },
     clearState: () => ({
       token: null,
       user: null,
@@ -42,5 +48,5 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
-export const { setAuth, setUser, setToken, setLoading, clearState } =
+export const { setAuth, setUser, setToken, setLoading, setAvatar, clearState } =
   authSlice.actions;

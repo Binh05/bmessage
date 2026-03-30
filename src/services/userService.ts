@@ -12,7 +12,22 @@ const fetchMe = async () => {
   return res.data.user;
 };
 
+const uploadAvatar = async (fromData: FormData) => {
+  const res = await api.post("/user/uploadAvatar", fromData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  if (res.status == 400) {
+    throw new Error(res.data.message);
+  }
+
+  return res.data;
+};
+
 export const userService = {
   searchUser,
   fetchMe,
+  uploadAvatar,
 };

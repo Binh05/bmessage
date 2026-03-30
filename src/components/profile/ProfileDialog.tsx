@@ -38,11 +38,12 @@ export default function ProfileDialog({ open, setOpen }: Props) {
 
             <ProfileCard user={user} />
 
-            <Tabs>
+            <Tabs defaultValue="info">
               <TabsList className="glass-light mt-2 grid w-full grid-cols-2">
                 <TabsTrigger
                   value="info"
                   className="data-[state=active]:glass-strong"
+                  defaultChecked
                 >
                   Tài khoản
                 </TabsTrigger>

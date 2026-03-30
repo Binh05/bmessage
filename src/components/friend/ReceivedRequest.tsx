@@ -19,7 +19,7 @@ const ReceivedRequest = () => {
     <div className="space-y-4">
       <div className="text-muted-foreground mb-3 flex items-center gap-3 text-sm font-semibold tracking-wide uppercase">
         <h1>Lời mời kết bạn</h1>
-        <span className="text-destructive text-xl font-semibold">
+        <span className="text-xl font-semibold text-red-500">
           {receivedList.length}
         </span>
       </div>
