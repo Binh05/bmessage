@@ -12,7 +12,7 @@ export const authService = {
   },
 
   signUp: async (username: string, email: string, password: string) => {
-    await api.post("/auth/signout", {
+    await api.post("/auth/signup", {
       username,
       email,
       password,
