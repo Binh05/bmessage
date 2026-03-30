@@ -26,8 +26,19 @@ const uploadAvatar = async (fromData: FormData) => {
   return res.data;
 };
 
+const updateProfile = async (phone?: string, bio?: string) => {
+  const updateData: { phone?: string; bio?: string } = {};
+  if (phone !== undefined) updateData.phone = phone;
+  if (bio !== undefined) updateData.bio = bio;
+
+  const res = await api.patch("/user/update", updateData);
+
+  return res.data.data;
+};
+
 export const userService = {
   searchUser,
   fetchMe,
   uploadAvatar,
+  updateProfile,
 };

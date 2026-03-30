@@ -39,6 +39,14 @@ const authSlice = createSlice({
 
       state.user.avatarUrl = action.payload;
     },
+    patchProfile: (
+      state,
+      action: PayloadAction<{ phone?: string; bio?: string }>,
+    ) => {
+      if (!state.user) return;
+      state.user.phone = action.payload.phone;
+      state.user.bio = action.payload.bio;
+    },
     clearState: () => ({
       token: null,
       user: null,
@@ -48,5 +56,12 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
-export const { setAuth, setUser, setToken, setLoading, setAvatar, clearState } =
-  authSlice.actions;
+export const {
+  setAuth,
+  setUser,
+  setToken,
+  setLoading,
+  setAvatar,
+  patchProfile,
+  clearState,
+} = authSlice.actions;

@@ -1,4 +1,4 @@
-import { setAvatar, setUser } from "@/lib/features/authSlice";
+import { patchProfile, setAvatar, setUser } from "@/lib/features/authSlice";
 import { useAppDispatch } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
 import { userService } from "@/services/userService";
@@ -45,9 +45,24 @@ export const useUser = () => {
     }
   };
 
+  const updateProfile = async (phone?: string, bio?: string) => {
+    try {
+      const data = await userService.updateProfile(phone, bio);
+
+      console.log(data);
+
+      dispatch(patchProfile({ phone: data?.phone, bio: data?.bio }));
+      toast.success("Cập nhập profile thành công");
+    } catch (error) {
+      toast.error("Lỗi khi cập nhập profile");
+      console.error("Lỗi khi cập nhập profie", error);
+    }
+  };
+
   return {
     fetchMe,
     searchUser,
     uploadAvatar,
+    updateProfile,
   };
 };

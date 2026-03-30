@@ -41,8 +41,8 @@ export function SignupForm({
   } = useForm<SignupTypeValues>({ resolver: zodResolver(signupSchema) });
   const { SignUp } = useAuth();
 
-  const onSignup = (data: SignupTypeValues) => {
-    SignUp(data.username, data.email, data.password);
+  const onSignup = async (data: SignupTypeValues) => {
+    await SignUp(data.username, data.email, data.password);
   };
 
   return (
