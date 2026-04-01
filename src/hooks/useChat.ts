@@ -38,9 +38,6 @@ export const useChat = () => {
 
     const convoId = conversationId ?? activeConversationId;
 
-    console.log(convoId);
-    console.log(activeConversationId);
-
     if (!convoId) return;
 
     const current = messages?.[convoId];

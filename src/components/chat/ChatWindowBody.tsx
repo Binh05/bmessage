@@ -10,18 +10,21 @@ const ChatWindowBody = () => {
     activeConversationId,
     messages: allMessages,
   } = useAppSelector(chatSelector);
-  const scrollPointRef= useRef<HTMLDivElement>(null);
+  const scrollPointRef = useRef<HTMLDivElement>(null);
 
   const messages = allMessages[activeConversationId!]?.items ?? [];
   const selectedConvo = conversations.find(
     (convo) => convo._id === activeConversationId,
   );
-  
-  useLayoutEffect(() => {
-    if (!scrollPointRef.current) return
 
-    scrollPointRef.current?.scrollIntoView({ behavior: 'smooth' , block: 'end' })
-  }, [activeConversationId])
+  useLayoutEffect(() => {
+    if (!scrollPointRef.current) return;
+
+    scrollPointRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, [activeConversationId]);
 
   if (!selectedConvo) {
     return <ChatWelcomeScreen />;
@@ -48,8 +51,9 @@ const ChatWindowBody = () => {
             lastMessageStatus="delivered"
           />
         ))}
+
+        <div ref={scrollPointRef}></div>
       </div>
-      <div ref={scrollPointRef}></div>
     </div>
   );
 };

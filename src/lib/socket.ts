@@ -1,12 +1,11 @@
 import { io, Socket } from "socket.io-client";
-import { urlBase } from "@/utils/api";
 
 export let socket: Socket | null = null;
 
 export const initSocket = (token: string) => {
   if (socket) return socket;
 
-  const URL_BASE = process.env.NEXT_PUBLIC_SOCKET_URL ?? urlBase;
+  const URL_BASE = process.env.NEXT_PUBLIC_SOCKET_URL;
 
   socket = io(URL_BASE, {
     auth: { token },
