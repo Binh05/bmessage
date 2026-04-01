@@ -24,7 +24,6 @@ function DirectMessageCard({ convo }: { convo: Conversation }) {
   const hanleSelectConvo = async (id: string) => {
     dispatch(setActiveConversationId(id));
     if (!messages[id]) {
-      console.log("component fetch", messages[id]);
       await fetchMessages();
     }
   };

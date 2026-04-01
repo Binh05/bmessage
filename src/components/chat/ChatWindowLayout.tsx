@@ -15,7 +15,7 @@ const ChatWindowLayout = () => {
   if (!selectedConvo) {
     return <ChatWelcomeScreen />;
   }
-  
+
   return (
     <SidebarInset className="flex h-full flex-1 flex-col overflow-hidden rounded-sm shadow-md">
       {/* Header */}

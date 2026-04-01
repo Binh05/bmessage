@@ -6,7 +6,7 @@ interface MessagesResponse {
   cursor?: string;
 }
 
-const pageLimit = 50;
+const pageLimit = 20;
 
 export const chatService = {
   fetchConversation: async () => {

@@ -1,4 +1,3 @@
-import { UserPlus } from "lucide-react";
 import DirectMessageCard from "./DirectMessageCard";
 import { useAppSelector } from "@/lib/hooks";
 import { authSelector, chatSelector } from "@/lib/selector";

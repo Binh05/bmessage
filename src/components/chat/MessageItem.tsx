@@ -9,7 +9,7 @@ interface MessageItemProps {
   index: number;
   messages: Message[];
   selectedConvo: Conversation;
-  lastMessageStatus: "delivered" | "seen";
+  lastMessageStatus: "Đã gửi" | "seen";
 }
 
 const MessageItem = ({
@@ -19,11 +19,11 @@ const MessageItem = ({
   selectedConvo,
   lastMessageStatus,
 }: MessageItemProps) => {
-  const prev = messages[index - 1];
+  const prev = index + 1 < messages.length ? messages[index + 1] : undefined;
 
   const isGroupBreak =
     index === 0 ||
-    message.senderId !== prev.senderId ||
+    message.senderId !== prev?.senderId ||
     new Date(message.createdAt).getTime() - new Date(prev.createdAt).getTime() >
       300000;
 
