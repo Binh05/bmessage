@@ -1,12 +1,17 @@
 import { UserPlus } from "lucide-react";
 import DirectMessageCard from "./DirectMessageCard";
 import { useAppSelector } from "@/lib/hooks";
-import { chatSelector } from "@/lib/selector";
+import { authSelector, chatSelector } from "@/lib/selector";
 
-function DirectMessageList() {
+function DirectMessageList({ searchConvo }: { searchConvo: string }) {
   const { conversations } = useAppSelector(chatSelector);
+  const { user } = useAppSelector(authSelector);
   const directConversation = conversations.filter(
-    (convo) => convo.type === "direct",
+    (convo) =>
+      convo.type === "direct" &&
+      convo.participants
+        .find((p) => p._id !== user?._id)
+        ?.username.includes(searchConvo),
   );
 
   return (
