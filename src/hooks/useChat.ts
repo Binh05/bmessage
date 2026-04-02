@@ -108,6 +108,7 @@ export const useChat = () => {
 
       if (!convoId) return;
 
+      dispatch(addMessageRealtime({ convoId, message: updatedMessage }));
       if (!messages[convoId]) {
         console.log("hook fetch: ", messages[convoId]);
         await fetchMessages(convoId);

@@ -66,8 +66,6 @@ const ChatWindowBody = () => {
       return;
     }
 
-    
-
     const item = sessionStorage.getItem(key);
 
     if (item) {
@@ -77,8 +75,6 @@ const ChatWindowBody = () => {
       });
     }
   }, [messages.length]);
-
-  
 
   if (!selectedConvo) {
     return <ChatWelcomeScreen />;
