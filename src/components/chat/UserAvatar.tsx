@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback } from "../ui/avatar";
 import { cn } from "@/lib/utils";
 
 interface IUserAvatarProps {
-  type: "chat" | "profile" | "sidebar";
+  type: "chat" | "profile" | "sidebar" | "group";
   name: string;
   avatarUrl?: string;
   className?: string;
@@ -21,6 +21,7 @@ function UserAvatar({
     <Avatar
       className={cn(
         className,
+        type === "group" && "size-6 text-xs",
         type === "sidebar" && "size-12 text-base",
         type === "chat" && "size-8 text-sm",
         type === "profile" && "size-24 text-3xl shadow-md",

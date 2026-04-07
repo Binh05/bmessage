@@ -56,4 +56,22 @@ export const chatService = {
 
     return res.data.conversation;
   },
+
+  sendGroupMessage: async (
+    conversationId: string,
+    content: string,
+    imgUrl: string = "",
+  ) => {
+    const res = await api.post("/messages/group", {
+      conversationId,
+      content,
+      imgUrl,
+    });
+
+    return res.data;
+  },
+
+  markSeen: async (conversationId: string): Promise<void> => {
+    await api.patch(`/conversations/${conversationId}/seen`);
+  },
 };

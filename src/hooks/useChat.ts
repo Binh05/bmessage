@@ -2,10 +2,12 @@ import {
   addConvo,
   addMessageRealtime,
   resetSeenBy,
+  resetUnreadCount,
   setConversations,
   setConvoLoading,
   setMessageLoading,
   setMessages,
+  updateConversation,
 } from "@/lib/features/chatSlice";
 import { useAppDispatch } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
@@ -135,11 +137,70 @@ export const useChat = () => {
     }
   };
 
+  const markSeen = async (conversationId: string): Promise<void> => {
+    const state = store.getState();
+    const userId = state.auth.user?._id;
+
+    if (!userId) return;
+
+    try {
+      await chatService.markSeen(conversationId);
+
+      dispatch(resetUnreadCount({ conversationId, userId }));
+    } catch (error) {
+      console.error("Lỗi khi mark seen trong useChat hook");
+    }
+  };
+
+  const sendGroupMessage = async (
+    conversationId: string,
+    content: string,
+    imgUrl: string = "",
+  ) => {
+    try {
+      const data = await chatService.sendGroupMessage(
+        conversationId,
+        content,
+        imgUrl,
+      );
+
+      // const updatedLastMessage = {
+      //   _id: data._id,
+      //   content: data.content,
+      //   createdAt: data.createdAt,
+      //   sender: {
+      //     id:
+      //   }
+      // };
+
+      console.log("send group message data", data);
+
+      const convoId = data.conversationId;
+
+      dispatch(resetSeenBy(convoId));
+      // dispatch(
+      //   updateConversation({
+      //     id: convoId,
+      //     lastMessageId: data.id,
+      //     lastMessageAt: data.createdAt,
+      //     lastMessage: updatedLastMessage,
+      //   }),
+      // );
+
+      addMessage(data);
+      //markSeen(convoId);
+    } catch (error) {
+      console.error("Lỗi khi sendGroupMessage trong useChat", error);
+    }
+  };
+
   return {
     fetchMessages,
     fetchConversations,
     sendDirectMessage,
     addMessage,
     createConvo,
+    markSeen,
+    sendGroupMessage,
   };
 };

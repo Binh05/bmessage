@@ -48,7 +48,10 @@ const chatSlice = createSlice({
     setConvoLoading: (state, action) => {
       state.convoLoading = action.payload;
     },
-    updateConversation: (state, action: PayloadAction<Conversation>) => {
+    updateConversation: (
+      state,
+      action: PayloadAction<Partial<Conversation>>,
+    ) => {
       state.conversations = state.conversations.map((c) =>
         c._id === action.payload._id ? { ...c, ...action.payload } : c,
       );
@@ -99,6 +102,19 @@ const chatSlice = createSlice({
         c._id === action.payload ? { ...c, seenBy: [] } : c,
       );
     },
+    resetUnreadCount: (
+      state,
+      action: PayloadAction<{ conversationId: string; userId: string }>,
+    ) => {
+      const { conversationId, userId } = action.payload;
+
+      if (!userId) return;
+
+      const convo = state.conversations.find((c) => c._id === conversationId);
+      if (!convo) return;
+
+      convo.unreadCounts[userId] = 0;
+    },
     clearChat: (state) => {
       state.conversations = [];
       state.messages = {};
@@ -123,4 +139,5 @@ export const {
   addMessageRealtime,
   setConvoLoading,
   resetSeenBy,
+  resetUnreadCount,
 } = chatSlice.actions;

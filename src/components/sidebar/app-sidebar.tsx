@@ -25,6 +25,7 @@ import { setTheme } from "@/lib/features/themeSlice";
 import AddFriendModel from "../chat/AddFriendModel";
 import CreateConvoCard from "../createNewConvo/CreateConvoCard";
 import SearchConvo from "../chat/SearchConvo";
+import CreateGroupChatModel from "../chat/CreateGroupChatModel";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useAppSelector(authSelector);
@@ -77,11 +78,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
         {/* friend */}
         <SidebarGroup>
-          <SidebarGroupLabel className="uppercase">bạn bè</SidebarGroupLabel>
-
-          <SidebarGroupAction>
-            <AddFriendModel />
-          </SidebarGroupAction>
+          <div className="flex items-center justify-between">
+            <SidebarGroupLabel className="uppercase">
+              Nhóm chat
+            </SidebarGroupLabel>
+            <div className="flex items-center gap-2">
+              <AddFriendModel />
+              <CreateGroupChatModel />
+            </div>
+          </div>
           <SidebarGroupContent>
             <DirectMessageList searchConvo={searchVal} />
           </SidebarGroupContent>
