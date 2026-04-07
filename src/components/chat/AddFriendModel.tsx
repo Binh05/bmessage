@@ -12,6 +12,7 @@ import { UserPlus } from "lucide-react";
 import { useUser } from "@/hooks/useUser";
 import { useState } from "react";
 import { User } from "@/types/user";
+import { Button } from "../ui/button";
 
 export interface IUseFormSearch {
   email: string;
@@ -59,10 +60,14 @@ export default function AddFriendModel() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="hover:bg-sidebar-accent z-10 flex size-5 cursor-pointer items-center justify-center rounded-full">
+        <Button
+          title="Kết bạn"
+          variant="ghost"
+          className="hover:bg-sidebar-accent z-10 flex size-5 cursor-pointer items-center justify-center rounded-full"
+        >
           <UserPlus />
           <span className="sr-only">Kết bạn</span>
-        </div>
+        </Button>
       </DialogTrigger>
       <DialogContent className="border-border/30 glass max-h-[95vh] sm:max-w-106.25">
         <DialogHeader>

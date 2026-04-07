@@ -68,6 +68,7 @@ const CreateGroupChatModel = () => {
     <Dialog>
       <DialogTrigger asChild>
         <Button
+          title="Tạo nhóm chat"
           variant="ghost"
           className="hover:bg-sidebar-accent z-10 flex size-5 cursor-pointer items-center justify-center rounded-full transition"
         >

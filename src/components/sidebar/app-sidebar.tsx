@@ -80,7 +80,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup>
           <div className="flex items-center justify-between">
             <SidebarGroupLabel className="uppercase">
-              Nhóm chat
+              Đoạn chat
             </SidebarGroupLabel>
             <div className="flex items-center gap-2">
               <AddFriendModel />
