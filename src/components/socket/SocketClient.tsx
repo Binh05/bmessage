@@ -41,7 +41,7 @@ export default function SocketClient() {
           createdAt: conversation.lastMessage.createdAt,
           sender: {
             _id: conversation.lastMessage.senderId,
-            displayName: "",
+            username: "",
             avatarUrl: null,
           },
         };
