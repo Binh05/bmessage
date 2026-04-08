@@ -36,7 +36,7 @@ const chatSlice = createSlice({
       );
       if (!existConvo)
         state.conversations = [action.payload, ...state.conversations];
-      state.activeConversationId = action.payload._id;
+      else state.activeConversationId = action.payload._id;
     },
     setChat: (state, action: PayloadAction<InitialState>) => {
       state.conversations = action.payload.conversations;

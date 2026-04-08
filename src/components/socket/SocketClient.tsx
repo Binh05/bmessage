@@ -6,12 +6,13 @@ import { authSelector, chatSelector } from "@/lib/selector";
 import { initSocket, disconnectSocket, getSocket } from "@/lib/socket";
 import { setOnlineUsers } from "@/lib/features/socketSlice";
 import { useChat } from "@/hooks/useChat";
-import { updateConversation } from "@/lib/features/chatSlice";
+import { addConvo, updateConversation } from "@/lib/features/chatSlice";
 
 export default function SocketClient() {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector(authSelector);
-  const { addMessage } = useChat();
+  const { activeConversationId } = useAppSelector(chatSelector);
+  const { addMessage, markSeen } = useChat();
 
   useEffect(() => {
     if (!token) {
@@ -51,25 +52,45 @@ export default function SocketClient() {
           unreadCounts,
         };
 
-        // mark ass seen
-
+        if (
+          activeConversationId === message.conversationId &&
+          activeConversationId
+        ) {
+          markSeen(activeConversationId);
+        }
         dispatch(updateConversation(updatedConversation));
       },
     );
+
+    socketInstance.on("new-group", (convo) => {
+      dispatch(addConvo(convo));
+    });
+
+    socketInstance.on("read-message", ({ conversation, lastMessage }) => {
+      const updated = {
+        _id: conversation._id,
+        lastMessage,
+        lastMessageAt: conversation.lastMessageAt,
+        unreadCounts: conversation.unreadCounts,
+        seenBy: conversation.seenBy,
+      };
+
+      dispatch(updateConversation(updated));
+    });
 
     socketInstance.on("disconnect", () => {
       console.log("Socket disconnected");
     });
 
-    // Cleanup khi unmount hoặc token thay đổi
     return () => {
-      // disconnect khi logout (token mất)
       if (!token) disconnectSocket();
 
       // Xóa listeners để tránh duplicate
       socketInstance.off("connect");
       socketInstance.off("online-users");
       socketInstance.off("new-message");
+      socketInstance.off("new-group");
+      socketInstance.off("read-message");
       socketInstance.off("disconnect");
     };
   }, [token, dispatch]);

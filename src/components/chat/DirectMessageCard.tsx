@@ -2,7 +2,10 @@ import { Conversation } from "@/types/chat";
 import ChatCard from "./ChatCard";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import UserAvatar from "./UserAvatar";
-import { setActiveConversationId } from "@/lib/features/chatSlice";
+import {
+  resetUnreadCount,
+  setActiveConversationId,
+} from "@/lib/features/chatSlice";
 import StatusBadge from "./StatusBadge";
 import { useChat } from "@/hooks/useChat";
 import { authSelector, chatSelector, socketSelector } from "@/lib/selector";
@@ -10,7 +13,7 @@ import { authSelector, chatSelector, socketSelector } from "@/lib/selector";
 function DirectMessageCard({ convo }: { convo: Conversation }) {
   const { user } = useAppSelector(authSelector);
   const { activeConversationId, messages } = useAppSelector(chatSelector);
-  const { fetchMessages } = useChat();
+  const { fetchMessages, markSeen } = useChat();
   const dispatch = useAppDispatch();
   const { onlineUsers } = useAppSelector(socketSelector);
 
@@ -26,6 +29,7 @@ function DirectMessageCard({ convo }: { convo: Conversation }) {
     if (!messages[id]) {
       await fetchMessages();
     }
+    if (messages[id] && convo.unreadCounts[user._id] > 0) await markSeen(id);
   };
 
   return (

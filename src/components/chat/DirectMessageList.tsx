@@ -1,23 +1,20 @@
 import DirectMessageCard from "./DirectMessageCard";
 import { useAppSelector } from "@/lib/hooks";
 import { authSelector, chatSelector } from "@/lib/selector";
+import GroupChatCard from "./GroupChatCard";
 
-function DirectMessageList({ searchConvo }: { searchConvo: string }) {
+function DirectMessageList() {
   const { conversations } = useAppSelector(chatSelector);
-  const { user } = useAppSelector(authSelector);
-  const directConversation = conversations.filter(
-    (convo) =>
-      convo.type === "direct" &&
-      convo.participants
-        .find((p) => p._id !== user?._id)
-        ?.username.includes(searchConvo),
-  );
 
   return (
     <div className="mt-2 flex flex-col gap-2">
-      {directConversation.map((convo) => (
-        <DirectMessageCard convo={convo} key={convo._id} />
-      ))}
+      {conversations.map((convo) =>
+        convo.type === "direct" ? (
+          <DirectMessageCard convo={convo} key={convo._id} />
+        ) : (
+          <GroupChatCard convo={convo} key={convo._id} />
+        ),
+      )}
     </div>
   );
 }

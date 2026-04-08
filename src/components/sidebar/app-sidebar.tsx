@@ -24,7 +24,6 @@ import { authSelector, themeSelector } from "@/lib/selector";
 import { setTheme } from "@/lib/features/themeSlice";
 import AddFriendModel from "../chat/AddFriendModel";
 import CreateConvoCard from "../createNewConvo/CreateConvoCard";
-import SearchConvo from "../chat/SearchConvo";
 import CreateGroupChatModel from "../chat/CreateGroupChatModel";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -35,8 +34,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const themeHandle = () => {
     dispatch(setTheme(theme == "dark" ? "light" : "dark"));
   };
-
-  const [searchVal, setSearchVal] = React.useState<string>("");
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -72,10 +69,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <CreateConvoCard />
           </SidebarGroupAction>
         </SidebarGroup>
-
-        <SidebarGroup>
-          <SearchConvo value={searchVal} setValue={setSearchVal} />
-        </SidebarGroup>
         {/* friend */}
         <SidebarGroup>
           <div className="flex items-center justify-between">
@@ -88,7 +81,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </div>
           </div>
           <SidebarGroupContent>
-            <DirectMessageList searchConvo={searchVal} />
+            <DirectMessageList />
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

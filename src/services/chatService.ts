@@ -57,15 +57,10 @@ export const chatService = {
     return res.data.conversation;
   },
 
-  sendGroupMessage: async (
-    conversationId: string,
-    content: string,
-    imgUrl: string = "",
-  ) => {
+  sendGroupMessage: async (conversationId: string, content: string) => {
     const res = await api.post("/messages/group", {
       conversationId,
       content,
-      imgUrl,
     });
 
     return res.data;

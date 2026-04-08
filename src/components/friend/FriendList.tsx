@@ -12,7 +12,7 @@ const FriendList = () => {
   const { createConvo } = useChat();
 
   useEffect(() => {
-    getFriends();
+    if (!friends) getFriends();
   }, []);
 
   if (!friends) return;

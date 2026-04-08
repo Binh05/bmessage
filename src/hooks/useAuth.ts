@@ -50,12 +50,13 @@ export const useAuth = () => {
       await authService.signOut();
 
       toast.info("Dang xuat thanh cong");
-      router.replace("/login");
 
       dispatch(clearState());
-      dispatch(clearChat());
-
       localStorage.clear();
+
+      router.replace("/login");
+
+      dispatch(clearChat());
     } catch (error: any) {
       toast.error(error?.message ?? "Da xay ra loi. Hay thu lai!");
       console.error(error.message);

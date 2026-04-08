@@ -11,7 +11,7 @@ import { useChat } from "@/hooks/useChat";
 const MessageInput = ({ selectedConvo }: { selectedConvo: Conversation }) => {
   const { user } = useAppSelector(authSelector);
   const [value, setValue] = useState("");
-  const { sendDirectMessage } = useChat();
+  const { sendDirectMessage, sendGroupMessage } = useChat();
 
   if (!user) return;
 
@@ -25,6 +25,8 @@ const MessageInput = ({ selectedConvo }: { selectedConvo: Conversation }) => {
         const participants = selectedConvo.participants;
         const otherUser = participants.filter((p) => p._id !== user._id)[0];
         await sendDirectMessage(otherUser._id, currValue);
+      } else {
+        await sendGroupMessage(selectedConvo._id, currValue);
       }
     } catch (error) {
       console.error(error);

@@ -148,47 +148,15 @@ export const useChat = () => {
 
       dispatch(resetUnreadCount({ conversationId, userId }));
     } catch (error) {
-      console.error("Lỗi khi mark seen trong useChat hook");
+      console.error("Lỗi khi mark seen trong useChat hook", error);
     }
   };
 
-  const sendGroupMessage = async (
-    conversationId: string,
-    content: string,
-    imgUrl: string = "",
-  ) => {
+  const sendGroupMessage = async (conversationId: string, content: string) => {
     try {
-      const data = await chatService.sendGroupMessage(
-        conversationId,
-        content,
-        imgUrl,
-      );
+      await chatService.sendGroupMessage(conversationId, content);
 
-      // const updatedLastMessage = {
-      //   _id: data._id,
-      //   content: data.content,
-      //   createdAt: data.createdAt,
-      //   sender: {
-      //     id:
-      //   }
-      // };
-
-      console.log("send group message data", data);
-
-      const convoId = data.conversationId;
-
-      dispatch(resetSeenBy(convoId));
-      // dispatch(
-      //   updateConversation({
-      //     id: convoId,
-      //     lastMessageId: data.id,
-      //     lastMessageAt: data.createdAt,
-      //     lastMessage: updatedLastMessage,
-      //   }),
-      // );
-
-      addMessage(data);
-      //markSeen(convoId);
+      dispatch(resetSeenBy(conversationId));
     } catch (error) {
       console.error("Lỗi khi sendGroupMessage trong useChat", error);
     }
