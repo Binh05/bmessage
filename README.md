@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💬 BMessage
 
-## Getting Started
+> BMessage is a real-time messaging application that allows users to connect and communicate via personal and group chats flexibly, smoothly, and securely.
 
-First, run the development server:
+## 🔗📋 Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [🔗✨ Features](#-features)
+- [🔗📸 Preview](#-preview)
+- [🔗🛠 Tech Stack](#-tech-stack)
+- [🔗🚀 Installation](#-installation)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔗✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🔒 **Security & Authentication:** Secure registration and login using JWT (supports both Access Token and Refresh Token).
+- 👥 **Friend Management:**
+  - Search for users.
+  - Send friend requests.
+  - View friend list.
+- 🟢 **Active Status:** Automatically displays user's online/offline status.
+- 💬 **Chat & Messaging:**
+  - Supports personal chats and group chats.
+  - Smoothly load old messages without slowing down the application thanks to **Infinite Scroll**.
+  - Send and receive text messages and application events in real-time.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔗📸 Preview
 
-## Learn More
+<p align="center" style="display: flex; gap: 16px">
+  <img src="./public/Login.png" alt="Login View" width="49%"  />
+  <img src="./public/Home.png" alt="Home View" width="49%" />
+</p>
 
-To learn more about Next.js, take a look at the following resources:
+## 🔗🛠 Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This repository specifically details the **Frontend** processing of BMessage:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Core Framework:** Next.js
+- **Language:** TypeScript
+- **Styling & UI Components:** Tailwind CSS, shadcn/ui
+- **API Communication:** Axios
+- **Real-time:** WebSocket
+- **Authentication Mechanism:** JWT (Separated Access & Refresh Tokens)
 
-## Deploy on Vercel
+_(Note: The source code and Backend technology are stored and described in a separate Backend repository)._
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔗🚀 Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 1. Prerequisites
+
+- [Node.js](https://nodejs.org/) (Version v18 or higher is recommended)
+- Node package manager: `npm`
+
+### 2. Running the Frontend Application
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone [project_url]
+   cd bmessage
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration (`.env`):**
+   Create a `.env` or `.env.local` file in the root directory to configure 3 mandatory connection parameters:
+
+   ```env
+   # 1. URL pointing to the root of the Backend Server
+   NEXT_PUBLIC_BACKEND_URL=your_backend_url
+
+   # 2. Route Configuration for Next.js Rewrite
+   # Because in a real environment, the Frontend and Backend applications are deployed on
+   # 2 different domains, direct API requests can cause CORS errors.
+   # Next.js Rewrite feature is applied to proxy (act as an intermediary gateway)
+   # pushing Requests from client to the backend API to hide the official domain,
+   # while avoiding CORS issues from the browser.
+   NEXT_PUBLIC_API_URL=/api
+
+   # 3. URL to establish WebSocket service connection (e.g. server ws://...)
+   NEXT_PUBLIC_SOCKET_URL=your_socket_url
+   ```
+
+4. **Start the development server:**
+
+   ```bash
+   npm run dev
+   ```
+   After the Terminal startup is complete, open your browser and experience the application at the URL: [http://localhost:3000](http://localhost:3000)
