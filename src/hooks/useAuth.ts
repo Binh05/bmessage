@@ -39,7 +39,9 @@ export const useAuth = () => {
       router.push("/");
     } catch (error: any) {
       console.log(error);
-      toast.error(error?.message ?? "Đã xảy ra lỗi. Hãy thử lại!");
+      toast.error(
+        error.response?.data?.message ?? "Đã xảy ra lỗi. Hãy thử lại!",
+      );
     } finally {
       dispatch(setLoading(false));
     }

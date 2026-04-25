@@ -27,7 +27,7 @@ api.interceptors.response.use(
   async (err) => {
     const originRequest = err.config;
 
-    if (originRequest.url.includes("/auth/refresh")) {
+    if (originRequest.url.includes("/auth")) {
       return Promise.reject(err);
     }
 
