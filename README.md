@@ -2,14 +2,14 @@
 
 > BMessage is a real-time messaging application that allows users to connect and communicate via personal and group chats flexibly, smoothly, and securely.
 
-## 🔗📋 Table of Contents
+## 📋 Table of Contents
 
-- [🔗✨ Features](#-features)
-- [🔗📸 Preview](#-preview)
-- [🔗🛠 Tech Stack](#-tech-stack)
-- [🔗🚀 Installation](#-installation)
+- [✨ Features](#-features)
+- [📸 Preview](#-preview)
+- [🛠 Tech Stack](#-tech-stack)
+- [🚀 Installation](#-installation)
 
-## 🔗✨ Features
+## ✨ Features
 
 - 🔒 **Security & Authentication:** Secure registration and login using JWT (supports both Access Token and Refresh Token).
 - 👥 **Friend Management:**
@@ -22,14 +22,14 @@
   - Smoothly load old messages without slowing down the application thanks to **Infinite Scroll**.
   - Send and receive text messages and application events in real-time.
 
-## 🔗📸 Preview
+## 📸 Preview
 
 <p align="center" style="display: flex; gap: 16px">
   <img src="./public/Login.png" alt="Login View" width="49%"  />
   <img src="./public/Home.png" alt="Home View" width="49%" />
 </p>
 
-## 🔗🛠 Tech Stack
+## 🛠 Tech Stack
 
 This repository specifically details the **Frontend** processing of BMessage:
 
@@ -42,7 +42,7 @@ This repository specifically details the **Frontend** processing of BMessage:
 
 _(Note: The source code and Backend technology are stored and described in a separate Backend repository)._
 
-## 🔗🚀 Installation
+## 🚀 Installation
 
 ### 1. Prerequisites
 
@@ -88,4 +88,5 @@ _(Note: The source code and Backend technology are stored and described in a sep
    ```bash
    npm run dev
    ```
+
    After the Terminal startup is complete, open your browser and experience the application at the URL: [http://localhost:3000](http://localhost:3000)
